@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — Tek Raj Kapadi</title>
+<style>
+:root{--blue:#1a5fb4;--bg:#f4f6f9;--card:#ffffff;--border:#e1e6ec;--text:#22303f;--danger:#d64545;}
+*{box-sizing:border-box;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:0;}
+.topbar{background:var(--blue);color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;}
+.topbar h1{font-size:18px;margin:0;}
+.topbar button{background:#ffffff22;color:#fff;border:1px solid #fff5;padding:6px 14px;border-radius:6px;cursor:pointer;}
+.wrap{max-width:900px;margin:24px auto;padding:0 16px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.card h2{margin-top:0;font-size:16px;color:var(--blue);}
+label{display:block;font-size:13px;margin:10px 0 4px;color:#555;}
+input[type=text],input[type=password],textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;}
+textarea{min-height:70px;resize:vertical;}
+button.primary{background:var(--blue);color:#fff;border:none;padding:10px 18px;border-radius:6px;cursor:pointer;font-size:14px;margin-top:12px;}
+button.primary:hover{opacity:.9;}
+button.danger{background:var(--danger);color:#fff;border:none;padding:6px 10px;border-radius:5px;cursor:pointer;font-size:12px;}
+.status{margin-top:10px;font-size:13px;padding:8px 10px;border-radius:6px;display:none;}
+.status.ok{display:block;background:#e6f4ea;color:#1e7e34;}
+.status.err{display:block;background:#fdecea;color:#c62828;}
+.status.busy{display:block;background:#fff8e1;color:#8a6d00;}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin-top:12px;}
+.gitem{position:relative;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fafafa;}
+.gitem img{width:100%;height:100px;object-fit:cover;display:block;}
+.gitem .rm{position:absolute;top:4px;right:4px;}
+.login-wrap{max-width:360px;margin:80px auto;padding:24px;background:#fff;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.08);}
+.login-wrap h1{font-size:18px;color:var(--blue);margin-top:0;}
+.hidden{display:none;}
+small.hint{color:#888;display:block;margin-top:4px;}
+</style>
+</head>
+<body>
+
+<div id="loginScreen" class="login-wrap">
+<h1>🔐 Admin Login</h1>
+<label>Admin Password</label>
+<input type="password" id="adminPass" placeholder="Enter admin password">
+<label>GitHub Access Token</label>
+<input type="password" id="ghToken" placeholder="ghp_... or github_pat_...">
+<small class="hint">Token is stored only in your browser (localStorage), never sent anywhere except GitHub.</small>
+<button class="primary" onclick="login()">Login</button>
+<div id="loginStatus" class="status"></div>
+</div>
+
+<div id="dashboard" class="hidden">
+<div class="topbar">
+<h1>Tek Raj Kapadi — Admin Panel</h1>
+<button onclick="logout()">Logout</button>
+</div>
+
+<div class="wrap">
+
+<div class="card">
+<h2>📢 Notice / सूचना</h2>
+<label>Notice text</label>
+<textarea id="noticeInput"></textarea>
+<button class="primary" onclick="saveNotice()">Save Notice</button>
+<div id="noticeStatus" class="status"></div>
+</div>
+
+<div class="card">
+<h2>🖼️ Gallery Photos</h2>
+<div id="galleryGrid" class="gallery-grid"></div>
+<label style="margin-top:16px;">Add new photo</label>
+<input type="file" id="photoFile" accept="image/*">
+<button class="primary" onclick="uploadPhoto()">Upload Photo</button>
+<div id="galleryStatus" class="status"></div>
+</div>
+
+</div>
+</div>
+
+<script>
+const OWNER = 'rajtekdhn';
+const REPO = 'learning-chautari-';
+const BRANCH = 'main';
+const ADMIN_PASSWORD = 'tekraj@2026'; // change this to your own password
+
+let currentData = null;
+let currentSha = null;
+
+function api(path){ return `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`; }
+function getToken(){ return localStorage.getItem('gh_token'); }
+
+function login(){
+const pass = document.getElementById('adminPass').value;
+const token = document.getElementById('ghToken').value.trim();
+const statusEl = document.getElementById('loginStatus');
+if(pass !== ADMIN_PASSWORD){
+statusEl.className = 'status err'; statusEl.textContent = 'Wrong password.'; return;
+}
+if(!token){
+statusEl.className = 'status err'; statusEl.textContent = 'Please enter GitHub token.'; return;
+}
+localStorage.setItem('gh_token', token);
+document.getElementById('loginScreen').classList.add('hidden');
+document.getElementById('dashboard').classList.remove('hidden');
+loadData();
+}
+
+function logout(){
+localStorage.removeItem('gh_token');
+location.reload();
+}
+
+async function loadData(){
+try{
+const res = await fetch(api('data.json'), {
+headers: { Authorization: `token ${getToken()}` }
+});
+if(!res.ok) throw new Error('Could not load data.json (' + res.status + ')');
+const json = await res.json();
+currentSha = json.sha;
+currentData = JSON.parse(decodeURIComponent(escape(atob(json.content))));
+document.getElementById('noticeInput').value = currentData.notice || '';
+renderGallery();
+}catch(e){
+alert('Error loading data.json: ' + e.message);
+}
+}
+
+function renderGallery(){
+const grid = document.getElementById('galleryGrid');
+grid.innerHTML = '';
+(currentData.gallery || []).forEach((src, idx) => {
+const div = document.createElement('div');
+div.className = 'gitem';
+div.innerHTML = `<img src="https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${src}" alt="">
+<button class="danger rm" onclick="removePhoto(${idx})">✕</button>`;
+grid.appendChild(div);
+});
+}
+
+async function saveDataJson(commitMessage){
+const content = btoa(unescape(encodeURIComponent(JSON.stringify(currentData, null, 2))));
+const res = await fetch(api('data.json'), {
+method: 'PUT',
+headers: { Authorization: `token ${getToken()}`, 'Content-Type': 'application/json' },
+body: JSON.stringify({
+message: commitMessage,
+content: content,
+sha: currentSha,
+branch: BRANCH
+})
+});
+if(!res.ok){ const err = await res.json(); throw new Error(err.message || 'Save failed'); }
+const json = await res.json();
+currentSha = json.content.sha;
+}
+
+async function saveNotice(){
+const statusEl = document.getElementById('noticeStatus');
+statusEl.className = 'status busy'; statusEl.textContent = 'Saving...';
+try{
+currentData.notice = document.getElementById('noticeInput').value;
+await saveDataJson('Update notice via admin panel');
+statusEl.className = 'status ok'; statusEl.textContent = 'Saved! Site will update in ~30 seconds.';
+}catch(e){
+statusEl.className = 'status err'; statusEl.textContent = 'Error: ' + e.message;
+}
+}
+
+async function removePhoto(idx){
+if(!confirm('Remove this photo from gallery?')) return;
+const statusEl = document.getElementById('galleryStatus');
+statusEl.className = 'status busy'; statusEl.textContent = 'Removing...';
+try{
+currentData.gallery.splice(idx, 1);
+await saveDataJson('Remove gallery photo via admin panel');
+renderGallery();
+statusEl.className = 'status ok'; statusEl.textContent = 'Removed! Site will update in ~30 seconds.';
+}catch(e){
+statusEl.className = 'status err'; statusEl.textContent = 'Error: ' + e.message;
+}
+}
+
+async function uploadPhoto(){
+const fileInput = document.getElementById('photoFile');
+const statusEl = document.getElementById('galleryStatus');
+if(!fileInput.files.length){ statusEl.className='status err'; statusEl.textContent='Choose a photo first.'; return; }
+const file = fileInput.files[0];
+statusEl.className = 'status busy'; statusEl.textContent = 'Uploading...';
+try{
+const base64 = await fileToBase64(file);
+const safeName = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9.\-_]/g,'');
+const path = 'images/' + safeName;
+const res = await fetch(api(path), {
+method: 'PUT',
+headers: { Authorization: `token ${getToken()}`, 'Content-Type': 'application/json' },
+body: JSON.stringify({
+message: 'Upload gallery photo via admin panel',
+content: base64,
+branch: BRANCH
+})
+});
+if(!res.ok){ const err = await res.json(); throw new Error(err.message || 'Upload failed'); }
+currentData.gallery.push(path);
+await saveDataJson('Add gallery photo to list via admin panel');
+renderGallery();
+fileInput.value = '';
+statusEl.className = 'status ok'; statusEl.textContent = 'Uploaded! Site will update in ~30 seconds.';
+}catch(e){
+statusEl.className = 'status err'; statusEl.textContent = 'Error: ' + e.message;
+}
+}
+
+function fileToBase64(file){
+return new Promise((resolve, reject) => {
+const reader = new FileReader();
+reader.onload = () => resolve(reader.result.split(',')[1]);
+reader.onerror = reject;
+reader.readAsDataURL(file);
+});
+}
+
+// Auto-login if token already saved
+window.onload = function(){
+if(getToken()){
+document.getElementById('ghToken').value = getToken();
+}
+};
+</script>
+</body>
+</html>
