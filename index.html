@@ -15,6 +15,11 @@
 .lightbox-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;padding:20px;cursor:zoom-out;}
 .lightbox-overlay.active{display:flex;}
 .lightbox-overlay img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px;cursor:default;}
+.res-item{border:1px solid #e5e5e5;border-radius:8px;padding:14px;margin-bottom:10px;background:#fff;}
+.res-item h4{margin:0 0 4px;font-size:15px;}
+.res-item p{margin:0 0 6px;font-size:13px;color:#555;}
+.res-item a.dl{font-size:13px;color:#1a5fb4;font-weight:600;text-decoration:none;}
+.res-item a.dl:hover{text-decoration:underline;}
 </style>
 </head>
 <body>
@@ -64,32 +69,7 @@
 <div class="content-grid">
 <section>
 <div class="section-title"><span>RECENT POSTS</span><a href="#resources">VIEW ALL →</a></div>
-<div class="posts">
-<article class="post">
-<div class="post-icon">?</div><div><h2>Tag Questions — Practice Yourself</h2>
-<p class="meta">Grammar • Practice • Quiz</p>
-<p>Learn the rules of tag questions with simple examples and practice activities.</p>
-<a class="read" href="#resources">Read more →</a></div>
-</article>
-<article class="post">
-<div class="post-icon">A</div><div><h2>English Grammar Rules</h2>
-<p class="meta">Grammar • Notes</p>
-<p>Clear English grammar explanations with simple Nepali support for learners.</p>
-<a class="read" href="#resources">Read more →</a></div>
-</article>
-<article class="post">
-<div class="post-icon">11</div><div><h2>Grade 11 English Resources</h2>
-<p class="meta">NEB • Grade 11</p>
-<p>Notes, literature guides, writing practice and model questions.</p>
-<a class="read" href="#grade">Read more →</a></div>
-</article>
-<article class="post">
-<div class="post-icon">12</div><div><h2>Grade 12 English Resources</h2>
-<p class="meta">NEB • Grade 12</p>
-<p>Exam-focused materials, grammar, writing and literature support.</p>
-<a class="read" href="#grade">Read more →</a></div>
-</article>
-</div>
+<div class="posts" id="recentPostsContainer"></div>
 
 <div class="info-card" id="about">
 <h2>Why study here? <span>किन यहाँ?</span></h2>
@@ -103,34 +83,34 @@
 
 <div id="resources" class="section-title"><span>LEARNING RESOURCES</span></div>
 <div class="resource-grid">
-<div><h3>Grammar Rules</h3><p>Tenses, voice, narration, articles, prepositions, tags and more.</p><button>OPEN</button></div>
-<div><h3>Grammar Exercises</h3><p>Practice questions with answers for school and exam preparation.</p><button>OPEN</button></div>
+<div><h3>Grammar Rules</h3><div id="grammarRulesContainer"></div></div>
+<div><h3>Grammar Exercises</h3><div id="grammarExercisesContainer"></div></div>
 <div><h3>Grammar Quiz</h3><p>Quick quizzes to test your English grammar knowledge.</p><button onclick="startQuiz()">START QUIZ</button></div>
-<div id="tsc"><h3>TSC Materials</h3><p>Teaching license preparation notes and practice materials.</p><button>OPEN</button></div>
+<div id="tsc"><h3>TSC Materials</h3><div id="tscMaterialsContainer"></div></div>
 </div>
 </section>
 
 <aside>
 <div class="side-title">POPULAR RESOURCES</div>
-<div class="side-card"><h3>📗 SEE English</h3><p>Grammar, writing and model questions.</p></div>
-<div class="side-card"><h3>📘 NEB Grade 11</h3><p>Compulsory English notes and practice.</p></div>
-<div class="side-card"><h3>📙 NEB Grade 12</h3><p>Literature, writing and exam practice.</p></div>
+<div class="side-card"><h3>📗 SEE English</h3><div id="seeEnglishSideContainer"></div></div>
+<div class="side-card"><h3>📘 NEB Grade 11</h3><div id="grade11SideContainer"></div></div>
+<div class="side-card"><h3>📙 NEB Grade 12</h3><div id="grade12SideContainer"></div></div>
 <div class="side-title blue-title">OUR BOOKS</div>
 <div class="books"><div>English<br><b>Practice Book</b><br><small>Grade 11</small></div><div>Compulsory<br><b>English</b><br><small>Practice Book</small></div></div>
 <div class="side-title green-title">QUICK QUIZ</div>
 <div class="quiz"><p>Which sentence is correct?</p><button onclick="alert('Answer: He goes to school every day.')">Show Answer</button></div>
 <div id="courses" class="side-title red-title">NEW COURSES</div>
-<div class="side-card"><h3>Spoken English</h3><p>Everyday conversation and communication practice.</p></div>
+<div class="side-card"><h3>Spoken English</h3><div id="spokenEnglishContainer"></div></div>
 </aside>
 </div>
 
 <section id="grade" class="wide-section">
 <div class="section-title"><span>GRADE 11/12 & EXAM PREPARATION</span></div>
 <div class="grade-grid">
-<div><b>Grade 11</b><p>Literature • Grammar • Writing • Model Questions</p></div>
-<div><b>Grade 12</b><p>Literature • Grammar • Writing • NEB Practice</p></div>
-<div><b>SEE</b><p>Grammar • Reading • Writing • Model Sets</p></div>
-<div><b>TSC</b><p>License preparation • Pedagogy • Practice</p></div>
+<div><b>Grade 11</b><div id="grade11Container"></div></div>
+<div><b>Grade 12</b><div id="grade12Container"></div></div>
+<div><b>SEE</b><div id="seeEnglishContainer"></div></div>
+<div><b>TSC</b><div id="tscContainer"></div></div>
 </div>
 </section>
 
@@ -141,13 +121,7 @@
 
 <section id="gallery" class="wide-section">
 <div class="section-title"><span>GALLERY</span></div>
-<div class="gallery" id="galleryContainer">
-<div><img src="images/041.jpg" alt="Gallery photo" loading="lazy" onclick="openLightbox(this.src)"></div>
-<div><img src="images/12.jpg" alt="Gallery photo" loading="lazy" onclick="openLightbox(this.src)"></div>
-<div><img src="images/13.jpg" alt="Gallery photo" loading="lazy" onclick="openLightbox(this.src)"></div>
-<div><img src="images/324.jpg" alt="Gallery photo" loading="lazy" onclick="openLightbox(this.src)"></div>
-<div><img src="images/library.jpg" alt="Library" loading="lazy" onclick="openLightbox(this.src)"></div>
-</div>
+<div class="gallery" id="galleryContainer"></div>
 </section>
 
 <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
@@ -181,10 +155,35 @@ document.getElementById('lightboxOverlay').classList.add('active');
 function closeLightbox(){
 document.getElementById('lightboxOverlay').classList.remove('active');
 }
+
+function renderResourceList(containerId, items){
+var el = document.getElementById(containerId);
+if(!el) return;
+if(!items || !items.length){ el.innerHTML = '<p style="font-size:13px;color:#888;">Coming soon.</p>'; return; }
+el.innerHTML = '';
+items.slice().reverse().forEach(function(item){
+var div = document.createElement('div');
+div.className = 'res-item';
+var html = '<h4>' + escapeHtml(item.title || '') + '</h4>';
+if(item.meta){ html += '<p style="font-weight:600;color:#1a5fb4;">' + escapeHtml(item.meta) + '</p>'; }
+if(item.description){ html += '<p>' + escapeHtml(item.description) + '</p>'; }
+if(item.link){ html += '<a class="dl" href="' + item.link + '" target="_blank" rel="noopener">Open / Download →</a>'; }
+div.innerHTML = html;
+el.appendChild(div);
+});
+}
+
+function escapeHtml(str){
+var d = document.createElement('div');
+d.textContent = str;
+return d.innerHTML;
+}
+
 fetch('data.json?t=' + Date.now())
 .then(r => r.json())
 .then(data => {
 if(data.notice){ document.getElementById('noticeText').textContent = data.notice; }
+
 if(data.gallery && data.gallery.length){
 var container = document.getElementById('galleryContainer');
 container.innerHTML = '';
@@ -197,8 +196,38 @@ div.appendChild(img);
 container.appendChild(div);
 });
 }
+
+var s = data.sections || {};
+
+// Recent posts (special card style, reuse existing markup style)
+var rp = document.getElementById('recentPostsContainer');
+if(s.recentPosts && s.recentPosts.length){
+rp.innerHTML = '';
+s.recentPosts.slice().reverse().forEach(function(post, i){
+var art = document.createElement('article');
+art.className = 'post';
+var icon = (post.title||'?').charAt(0).toUpperCase();
+var linkHtml = post.link ? '<a class="read" href="'+post.link+'" target="_blank" rel="noopener">Read more →</a>' : '<a class="read" href="#resources">Read more →</a>';
+art.innerHTML = '<div class="post-icon">'+icon+'</div><div><h2>'+escapeHtml(post.title||'')+'</h2>'+
+(post.meta ? '<p class="meta">'+escapeHtml(post.meta)+'</p>' : '')+
+'<p>'+escapeHtml(post.description||'')+'</p>'+linkHtml+'</div>';
+rp.appendChild(art);
+});
+}
+
+renderResourceList('grammarRulesContainer', s.grammarRules);
+renderResourceList('grammarExercisesContainer', s.grammarExercises);
+renderResourceList('tscMaterialsContainer', s.tscMaterials);
+renderResourceList('tscContainer', s.tscMaterials);
+renderResourceList('grade11Container', s.grade11);
+renderResourceList('grade11SideContainer', s.grade11);
+renderResourceList('grade12Container', s.grade12);
+renderResourceList('grade12SideContainer', s.grade12);
+renderResourceList('seeEnglishContainer', s.seeEnglish);
+renderResourceList('seeEnglishSideContainer', s.seeEnglish);
+renderResourceList('spokenEnglishContainer', s.spokenEnglish);
 })
-.catch(function(e){ console.log('data.json not loaded, using defaults'); });
+.catch(function(e){ console.log('data.json not loaded, using defaults', e); });
 </script>
 </body>
 </html>
