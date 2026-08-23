@@ -141,7 +141,7 @@
 
 <section id="gallery" class="wide-section">
 <div class="section-title"><span>GALLERY</span></div>
-<div class="gallery">
+<div class="gallery" id="galleryContainer">
 <div><img src="images/041.jpg" alt="Gallery photo" loading="lazy" onclick="openLightbox(this.src)"></div>
 <div><img src="images/12.jpg" alt="Gallery photo" loading="lazy" onclick="openLightbox(this.src)"></div>
 <div><img src="images/13.jpg" alt="Gallery photo" loading="lazy" onclick="openLightbox(this.src)"></div>
@@ -155,7 +155,7 @@
 </div>
 
 <section id="notices" class="notice-box">
-<b>NOTICE / सूचना:</b> New English learning materials, model questions and practice sets will be added regularly.
+<b>NOTICE / सूचना:</b> <span id="noticeText">New English learning materials, model questions and practice sets will be added regularly.</span>
 </section>
 
 <section id="contact" class="contact">
@@ -181,6 +181,24 @@ document.getElementById('lightboxOverlay').classList.add('active');
 function closeLightbox(){
 document.getElementById('lightboxOverlay').classList.remove('active');
 }
+fetch('data.json?t=' + Date.now())
+.then(r => r.json())
+.then(data => {
+if(data.notice){ document.getElementById('noticeText').textContent = data.notice; }
+if(data.gallery && data.gallery.length){
+var container = document.getElementById('galleryContainer');
+container.innerHTML = '';
+data.gallery.forEach(function(src){
+var div = document.createElement('div');
+var img = document.createElement('img');
+img.src = src; img.alt = 'Gallery photo'; img.loading = 'lazy';
+img.onclick = function(){ openLightbox(img.src); };
+div.appendChild(img);
+container.appendChild(div);
+});
+}
+})
+.catch(function(e){ console.log('data.json not loaded, using defaults'); });
 </script>
 </body>
 </html>
