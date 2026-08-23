@@ -9,8 +9,12 @@
 <style>
 .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;}
 .gallery > div{overflow:hidden;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.12);}
-.gallery img{width:100%;height:180px;object-fit:cover;display:block;transition:transform .3s ease;}
+.gallery img{width:100%;height:180px;object-fit:contain;background:#f0f0f0;display:block;transition:transform .3s ease;cursor:pointer;}
 .gallery img:hover{transform:scale(1.06);}
+.avatar-wrap img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+.lightbox-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;padding:20px;cursor:zoom-out;}
+.lightbox-overlay.active{display:flex;}
+.lightbox-overlay img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px;cursor:default;}
 </style>
 </head>
 <body>
@@ -138,13 +142,17 @@
 <section id="gallery" class="wide-section">
 <div class="section-title"><span>GALLERY</span></div>
 <div class="gallery">
-<div><img src="images/041.jpg" alt="Gallery photo" loading="lazy"></div>
-<div><img src="images/12.jpg" alt="Gallery photo" loading="lazy"></div>
-<div><img src="images/13.jpg" alt="Gallery photo" loading="lazy"></div>
-<div><img src="images/324.jpg" alt="Gallery photo" loading="lazy"></div>
-<div><img src="images/library.jpg" alt="Library" loading="lazy"></div>
+<div><img src="images/041.jpg" alt="Gallery photo" loading="lazy" onclick="openLightbox(this.src)"></div>
+<div><img src="images/12.jpg" alt="Gallery photo" loading="lazy" onclick="openLightbox(this.src)"></div>
+<div><img src="images/13.jpg" alt="Gallery photo" loading="lazy" onclick="openLightbox(this.src)"></div>
+<div><img src="images/324.jpg" alt="Gallery photo" loading="lazy" onclick="openLightbox(this.src)"></div>
+<div><img src="images/library.jpg" alt="Library" loading="lazy" onclick="openLightbox(this.src)"></div>
 </div>
 </section>
+
+<div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
+<img id="lightboxImg" src="" alt="Full view">
+</div>
 
 <section id="notices" class="notice-box">
 <b>NOTICE / सूचना:</b> New English learning materials, model questions and practice sets will be added regularly.
@@ -166,6 +174,13 @@
 
 <script>
 function startQuiz(){ alert('Quiz demo: The interactive quiz section can be expanded with your own questions.'); }
+function openLightbox(src){
+document.getElementById('lightboxImg').src = src;
+document.getElementById('lightboxOverlay').classList.add('active');
+}
+function closeLightbox(){
+document.getElementById('lightboxOverlay').classList.remove('active');
+}
 </script>
 </body>
 </html>
