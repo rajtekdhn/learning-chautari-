@@ -1,11 +1,87 @@
 {
-  "notice": "after two days leave school will run from monday",
+  "notice": "New English learning materials, model questions and practice sets will be added regularly.",
   "gallery": [
     "images/041.jpg",
     "images/12.jpg",
     "images/13.jpg",
     "images/324.jpg",
-    "images/library.jpg",
-    "images/1787500613810-IMG_20250320_065407.jpg"
-  ]
+    "images/library.jpg"
+  ],
+  "sections": {
+    "recentPosts": [
+      {
+        "title": "Tag Questions — Practice Yourself",
+        "meta": "Grammar • Practice • Quiz",
+        "description": "Learn the rules of tag questions with simple examples and practice activities.",
+        "link": ""
+      },
+      {
+        "title": "English Grammar Rules",
+        "meta": "Grammar • Notes",
+        "description": "Clear English grammar explanations with simple Nepali support for learners.",
+        "link": ""
+      },
+      {
+        "title": "Grade 11 English Resources",
+        "meta": "NEB • Grade 11",
+        "description": "Notes, literature guides, writing practice and model questions.",
+        "link": ""
+      },
+      {
+        "title": "Grade 12 English Resources",
+        "meta": "NEB • Grade 12",
+        "description": "Exam-focused materials, grammar, writing and literature support.",
+        "link": ""
+      }
+    ],
+    "grammarRules": [
+      {
+        "title": "Tenses, Voice, Narration",
+        "description": "Core grammar rules with simple explanations.",
+        "link": ""
+      }
+    ],
+    "grammarExercises": [
+      {
+        "title": "Practice Questions Set 1",
+        "description": "Practice questions with answers for school and exam preparation.",
+        "link": ""
+      }
+    ],
+    "tscMaterials": [
+      {
+        "title": "TSC Pedagogy Notes",
+        "description": "Teaching license preparation notes and practice materials.",
+        "link": ""
+      }
+    ],
+    "grade11": [
+      {
+        "title": "Grade 11 Compulsory English Notes",
+        "description": "Literature • Grammar • Writing • Model Questions",
+        "link": ""
+      }
+    ],
+    "grade12": [
+      {
+        "title": "Grade 12 Compulsory English Notes",
+        "description": "Literature • Grammar • Writing • NEB Practice",
+        "link": ""
+      }
+    ],
+    "seeEnglish": [
+      {
+        "title": "SEE English Grammar & Writing",
+        "description": "Grammar • Reading • Writing • Model Sets",
+        "link": ""
+      }
+    ],
+    "spokenEnglish": [
+      {
+        "title": "Spoken English Basics",
+        "description": "Everyday conversation and communication practice.",
+        "link": ""
+      }
+    ]
+  }
 }
