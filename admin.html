@@ -15,11 +15,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--te
 .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
 .card h2{margin-top:0;font-size:16px;color:var(--blue);}
 label{display:block;font-size:13px;margin:10px 0 4px;color:#555;}
-input[type=text],input[type=password],textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;}
-textarea{min-height:70px;resize:vertical;}
+input[type=text],input[type=password],input[type=url],textarea,select{width:100%;padding:10px;border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;}
+textarea{min-height:60px;resize:vertical;}
 button.primary{background:var(--blue);color:#fff;border:none;padding:10px 18px;border-radius:6px;cursor:pointer;font-size:14px;margin-top:12px;}
 button.primary:hover{opacity:.9;}
-button.danger{background:var(--danger);color:#fff;border:none;padding:6px 10px;border-radius:5px;cursor:pointer;font-size:12px;}
+button.danger{background:var(--danger);color:#fff;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;font-size:12px;}
 .status{margin-top:10px;font-size:13px;padding:8px 10px;border-radius:6px;display:none;}
 .status.ok{display:block;background:#e6f4ea;color:#1e7e34;}
 .status.err{display:block;background:#fdecea;color:#c62828;}
@@ -32,6 +32,12 @@ button.danger{background:var(--danger);color:#fff;border:none;padding:6px 10px;b
 .login-wrap h1{font-size:18px;color:var(--blue);margin-top:0;}
 .hidden{display:none;}
 small.hint{color:#888;display:block;margin-top:4px;}
+.item-row{border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;background:#fafbfc;}
+.item-row .info b{display:block;font-size:14px;}
+.item-row .info span{font-size:12px;color:#666;}
+.section-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.section-tabs button{padding:7px 12px;border-radius:20px;border:1px solid var(--border);background:#fff;cursor:pointer;font-size:13px;}
+.section-tabs button.active{background:var(--blue);color:#fff;border-color:var(--blue);}
 </style>
 </head>
 <body>
@@ -72,6 +78,25 @@ small.hint{color:#888;display:block;margin-top:4px;}
 <div id="galleryStatus" class="status"></div>
 </div>
 
+<div class="card">
+<h2>📚 Content Sections</h2>
+<p style="font-size:13px;color:#666;margin-top:-6px;">Add new notes, materials or posts. New items are added on top — old ones stay unless you delete them.</p>
+<div class="section-tabs" id="sectionTabs"></div>
+
+<label>Title</label>
+<input type="text" id="itemTitle" placeholder="e.g. Grade 11 Chapter 3 Notes">
+<label>Short tag / meta (optional)</label>
+<input type="text" id="itemMeta" placeholder="e.g. NEB • Grade 11">
+<label>Description</label>
+<textarea id="itemDescription" placeholder="Short description of this material"></textarea>
+<label>Link (optional — PDF, Google Drive, YouTube, etc.)</label>
+<input type="url" id="itemLink" placeholder="https://...">
+<button class="primary" onclick="addItem()">Add to Section</button>
+<div id="itemStatus" class="status"></div>
+
+<div id="itemsList" style="margin-top:18px;"></div>
+</div>
+
 </div>
 </div>
 
@@ -80,6 +105,18 @@ const OWNER = 'rajtekdhn';
 const REPO = 'learning-chautari-';
 const BRANCH = 'main';
 const ADMIN_PASSWORD = 'tekraj@2026'; // change this to your own password
+
+const SECTIONS = [
+{ key: 'recentPosts', label: 'Recent Posts' },
+{ key: 'grammarRules', label: 'Grammar Rules' },
+{ key: 'grammarExercises', label: 'Grammar Exercises' },
+{ key: 'tscMaterials', label: 'TSC Materials' },
+{ key: 'grade11', label: 'Grade 11' },
+{ key: 'grade12', label: 'Grade 12' },
+{ key: 'seeEnglish', label: 'SEE English' },
+{ key: 'spokenEnglish', label: 'Spoken English' }
+];
+let activeSection = SECTIONS[0].key;
 
 let currentData = null;
 let currentSha = null;
@@ -100,12 +137,25 @@ statusEl.className = 'status err'; statusEl.textContent = 'Please enter GitHub t
 localStorage.setItem('gh_token', token);
 document.getElementById('loginScreen').classList.add('hidden');
 document.getElementById('dashboard').classList.remove('hidden');
+buildTabs();
 loadData();
 }
 
 function logout(){
 localStorage.removeItem('gh_token');
 location.reload();
+}
+
+function buildTabs(){
+const wrap = document.getElementById('sectionTabs');
+wrap.innerHTML = '';
+SECTIONS.forEach(sec => {
+const btn = document.createElement('button');
+btn.textContent = sec.label;
+if(sec.key === activeSection) btn.className = 'active';
+btn.onclick = () => { activeSection = sec.key; buildTabs(); renderItems(); };
+wrap.appendChild(btn);
+});
 }
 
 async function loadData(){
@@ -117,8 +167,11 @@ if(!res.ok) throw new Error('Could not load data.json (' + res.status + ')');
 const json = await res.json();
 currentSha = json.sha;
 currentData = JSON.parse(decodeURIComponent(escape(atob(json.content))));
+if(!currentData.sections) currentData.sections = {};
+SECTIONS.forEach(s => { if(!currentData.sections[s.key]) currentData.sections[s.key] = []; });
 document.getElementById('noticeInput').value = currentData.notice || '';
 renderGallery();
+renderItems();
 }catch(e){
 alert('Error loading data.json: ' + e.message);
 }
@@ -134,6 +187,31 @@ div.innerHTML = `<img src="https://raw.githubusercontent.com/${OWNER}/${REPO}/${
 <button class="danger rm" onclick="removePhoto(${idx})">✕</button>`;
 grid.appendChild(div);
 });
+}
+
+function renderItems(){
+const list = document.getElementById('itemsList');
+const items = (currentData.sections[activeSection] || []);
+list.innerHTML = '';
+if(!items.length){
+list.innerHTML = '<p style="font-size:13px;color:#888;">No items yet in this section.</p>';
+return;
+}
+items.slice().reverse().forEach((item, revIdx) => {
+const realIdx = items.length - 1 - revIdx;
+const row = document.createElement('div');
+row.className = 'item-row';
+row.innerHTML = `<div class="info"><b>${escapeHtml(item.title||'')}</b>
+<span>${escapeHtml(item.meta||item.description||'')}</span></div>
+<button class="danger" onclick="removeItem(${realIdx})">Remove</button>`;
+list.appendChild(row);
+});
+}
+
+function escapeHtml(str){
+const d = document.createElement('div');
+d.textContent = str;
+return d.innerHTML;
 }
 
 async function saveDataJson(commitMessage){
@@ -209,6 +287,42 @@ statusEl.className = 'status err'; statusEl.textContent = 'Error: ' + e.message;
 }
 }
 
+async function addItem(){
+const title = document.getElementById('itemTitle').value.trim();
+const meta = document.getElementById('itemMeta').value.trim();
+const description = document.getElementById('itemDescription').value.trim();
+const link = document.getElementById('itemLink').value.trim();
+const statusEl = document.getElementById('itemStatus');
+if(!title){ statusEl.className='status err'; statusEl.textContent='Title is required.'; return; }
+statusEl.className = 'status busy'; statusEl.textContent = 'Saving...';
+try{
+currentData.sections[activeSection].push({ title, meta, description, link });
+await saveDataJson('Add item to ' + activeSection + ' via admin panel');
+renderItems();
+document.getElementById('itemTitle').value = '';
+document.getElementById('itemMeta').value = '';
+document.getElementById('itemDescription').value = '';
+document.getElementById('itemLink').value = '';
+statusEl.className = 'status ok'; statusEl.textContent = 'Added! Site will update in ~30 seconds.';
+}catch(e){
+statusEl.className = 'status err'; statusEl.textContent = 'Error: ' + e.message;
+}
+}
+
+async function removeItem(idx){
+if(!confirm('Remove this item?')) return;
+const statusEl = document.getElementById('itemStatus');
+statusEl.className = 'status busy'; statusEl.textContent = 'Removing...';
+try{
+currentData.sections[activeSection].splice(idx, 1);
+await saveDataJson('Remove item from ' + activeSection + ' via admin panel');
+renderItems();
+statusEl.className = 'status ok'; statusEl.textContent = 'Removed! Site will update in ~30 seconds.';
+}catch(e){
+statusEl.className = 'status err'; statusEl.textContent = 'Error: ' + e.message;
+}
+}
+
 function fileToBase64(file){
 return new Promise((resolve, reject) => {
 const reader = new FileReader();
@@ -218,7 +332,6 @@ reader.readAsDataURL(file);
 });
 }
 
-// Auto-login if token already saved
 window.onload = function(){
 if(getToken()){
 document.getElementById('ghToken').value = getToken();
