@@ -6,31 +6,75 @@
 <title>Tek Raj Kapadi — Learning Chutari with TEK RAJ </title>
 <meta name="description" content="English learning resources, grammar, Grade 11/12, SEE, NEB and TSC materials.">
 <link rel="stylesheet" href="style.css">
+
+<!-- ============================================================
+     EXTRA STYLES for the new sections added below.
+     These sit on top of your existing style.css and do not
+     change it, so your original design stays exactly the same.
+     ============================================================ -->
 <style>
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;}
-.gallery > div{overflow:hidden;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.12);}
-.gallery img{width:100%;height:180px;object-fit:contain;background:#f0f0f0;display:block;transition:transform .3s ease;cursor:pointer;}
-.gallery img:hover{transform:scale(1.06);}
-.avatar-wrap img{width:100%;height:100%;object-fit:cover;object-position:top center;}
-.lightbox-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;padding:20px;cursor:zoom-out;}
-.lightbox-overlay.active{display:flex;}
-.lightbox-overlay img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px;cursor:default;}
-.res-item{border:1px solid #e5e5e5;border-radius:8px;padding:14px;margin-bottom:10px;background:#fff;}
-.res-item h4{margin:0 0 4px;font-size:15px;}
-.res-item p{margin:0 0 6px;font-size:13px;color:#555;}
-.res-item a.dl{font-size:13px;color:#1a5fb4;font-weight:600;text-decoration:none;}
-.res-item a.dl:hover{text-decoration:underline;}
-.nav-drop{position:relative;}
-.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;min-width:240px;max-width:320px;box-shadow:0 6px 16px rgba(0,0,0,.18);z-index:100;flex-direction:column;border-radius:0 0 6px 6px;overflow:hidden;max-height:360px;overflow-y:auto;}
-.nav-drop:hover .dropdown-menu{display:flex;}
-.dropdown-menu a{color:#222 !important;text-decoration:none;padding:10px 14px !important;font-size:12px !important;font-weight:normal !important;border-bottom:1px solid #eee;background:#fff;white-space:normal;line-height:1.4;}
-.dropdown-menu a:hover{background:#eaf4ff !important;color:#0789ef !important;}
-.nav-drop:hover>a{background:#087ed8;}
-.dropdown-menu .empty-item{padding:10px 14px;font-size:12px;color:#999;}
-.dropdown-menu .see-all{background:#f4f8fc;font-weight:bold;color:#0789ef !important;}
+  /* Accordion (Grammar Rules / Exercises / TSC Materials) */
+  .acc-item{border:1px solid #e3e3e3;border-radius:10px;margin-bottom:10px;overflow:hidden;background:#fff}
+  .acc-head{width:100%;text-align:left;background:#f7f8fa;border:none;padding:14px 16px;font-weight:600;
+             cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:15px}
+  .acc-head:hover{background:#eef1f5}
+  .acc-head .arrow{transition:transform .2s ease}
+  .acc-item.open .arrow{transform:rotate(180deg)}
+  .acc-body{max-height:0;overflow:hidden;transition:max-height .25s ease;padding:0 16px}
+  .acc-item.open .acc-body{max-height:900px;padding:12px 16px 16px}
+  .acc-body h4{margin:10px 0 4px;font-size:14px;color:#1f4fd6}
+  .acc-body p{margin:4px 0;line-height:1.55}
+  .acc-body .np{color:#666;font-size:13.5px}
+
+  /* Exercises */
+  .ex-q{border-bottom:1px dashed #ddd;padding:10px 0}
+  .ex-q:last-child{border-bottom:none}
+  .ex-ans{display:none;margin-top:6px;background:#eefbea;border-left:3px solid #34a853;
+          padding:8px 10px;border-radius:6px;font-size:14px}
+  .ex-ans.show{display:block}
+  .ex-btn{margin-top:6px;font-size:13px;padding:5px 10px;border-radius:6px;border:1px solid #34a853;
+          background:#fff;color:#219150;cursor:pointer}
+  .ex-btn:hover{background:#219150;color:#fff}
+
+  /* Quiz */
+  .quiz-box{background:#fff;border:1px solid #e3e3e3;border-radius:10px;padding:16px}
+  .quiz-progress{font-size:13px;color:#777;margin-bottom:8px}
+  .quiz-question{font-weight:600;margin-bottom:10px}
+  .quiz-opts{display:flex;flex-direction:column;gap:8px}
+  .quiz-opt{text-align:left;padding:9px 12px;border-radius:8px;border:1px solid #ccc;background:#fafafa;
+            cursor:pointer;font-size:14.5px}
+  .quiz-opt:hover{background:#eef1f5}
+  .quiz-opt.correct{background:#dbf7dc;border-color:#34a853}
+  .quiz-opt.wrong{background:#fbdede;border-color:#e0453c}
+  .quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+  .quiz-result{text-align:center;font-size:16px;padding:20px 0}
+
+  /* Gallery */
+  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .g-item{background:#fff;border:1px solid #e3e3e3;border-radius:10px;padding:20px 10px;text-align:center}
+  .g-item .emoji{font-size:34px;display:block;margin-bottom:6px}
+  .g-item small{color:#777}
+
+  /* Downloads / resource lists */
+  .dl-list{list-style:none;padding:0;margin:0}
+  .dl-list li{display:flex;justify-content:space-between;align-items:center;padding:9px 0;
+              border-bottom:1px solid #eee;font-size:14.5px}
+  .dl-list li:last-child{border-bottom:none}
+  .dl-btn{font-size:12.5px;padding:5px 10px;border-radius:6px;border:1px solid #1f4fd6;
+          color:#1f4fd6;background:#fff;text-decoration:none}
+  .dl-btn:hover{background:#1f4fd6;color:#fff}
+  .dl-note{font-size:12px;color:#999}
+
+  /* Social icons as real links (keeps the original round-badge look) */
+  .social a{width:22px;height:22px;border-radius:50%;background:#fff;color:#0789ef;
+            display:grid;place-items:center;font-weight:bold;text-decoration:none}
+
+  .edit-note{background:#fff8e1;border:1px dashed #e0b400;border-radius:8px;padding:8px 12px;
+             font-size:12.5px;color:#7a5b00;margin:8px 0}
 </style>
 </head>
 <body>
+
 <header>
 <div class="topbar">
 <div class="toplinks">
@@ -38,23 +82,32 @@
 <a href="#resources">Resources</a><a href="#grade">Grade 11/12</a><a href="#classes">Classes</a>
 <a href="#gallery">Gallery</a><a href="#tsc">TSC Materials</a>
 </div>
-<div class="social"><span>f</span><span>𝕏</span><span>◎</span><span>▶</span></div>
+<!-- ⚠️ EDIT ME: replace the # below with your real Facebook / X / YouTube / Instagram links -->
+<div class="social">
+  <a href="#" title="Facebook">f</a>
+  <a href="#" title="X (Twitter)">𝕏</a>
+  <a href="#" title="Instagram">◎</a>
+  <a href="#" title="YouTube">▶</a>
 </div>
+</div>
+
 <div class="brand" id="home">
-<div class="avatar-wrap"><img src="teacher-photo.jpg" alt="Tek Raj Kapadi"></div>
+<!-- ⚠️ EDIT ME: put your real photo file (e.g. teacher-photo.jpg) in this folder and change src below -->
+<div class="avatar-wrap"><img src="teacher-photo.jpg" alt="Tek Raj Kapadi" onerror="this.onerror=null;this.src='teacher-photo.svg'"></div>
 <div>
 <div class="official">Tek Raj Kapadi's Educational Website</div>
 <h1><span>Learning Chautari </span> <b>With TEKRAJ </b></h1>
 <p>English Teacher • Educator • Learning Resources</p>
 </div>
 </div>
+
 <nav class="mainnav">
 <a class="active" href="#home">HOME</a>
-<div class="nav-drop"><a href="#resources">GRAMMAR ▾</a><div class="dropdown-menu" id="menuGrammar"></div></div>
-<div class="nav-drop"><a href="#grade">GRADE 11/12 ▾</a><div class="dropdown-menu" id="menuGrade"></div></div>
-<div class="nav-drop"><a href="#classes">CLASSES ▾</a><div class="dropdown-menu" id="menuClasses"></div></div>
-<div class="nav-drop"><a href="#gallery">GALLERY ▾</a></div>
-<div class="nav-drop"><a href="#tsc">TSC MATERIALS ▾</a><div class="dropdown-menu" id="menuTsc"></div></div>
+<a href="#resources">GRAMMAR ▾</a>
+<a href="#grade">GRADE 11/12 ▾</a>
+<a href="#classes">CLASSES ▾</a>
+<a href="#gallery">GALLERY ▾</a>
+<a href="#tsc">TSC MATERIALS ▾</a>
 <a href="#courses">NEW COURSES</a>
 <a href="#notices">NOTICES</a>
 </nav>
@@ -63,7 +116,7 @@
 <section class="banner">
 <div class="banner-art">📚</div>
 <div><strong>Welcome to Tek Raj Kapadi — Learn English</strong><br><small>Free learning materials for Nepali students</small></div>
-<button onclick="alert('More learning materials will be added soon.')">EXPLORE</button>
+<button onclick="document.getElementById('resources').scrollIntoView({behavior:'smooth'})">EXPLORE</button>
 </section>
 
 <main>
@@ -77,7 +130,32 @@
 <div class="content-grid">
 <section>
 <div class="section-title"><span>RECENT POSTS</span><a href="#resources">VIEW ALL →</a></div>
-<div class="posts" id="recentPostsContainer"></div>
+<div class="posts">
+<article class="post">
+<div class="post-icon">?</div><div><h2>Tag Questions — Practice Yourself</h2>
+<p class="meta">Grammar • Practice • Quiz</p>
+<p>Learn the rules of tag questions with simple examples and practice activities.</p>
+<a class="read" href="#resources">Read more →</a></div>
+</article>
+<article class="post">
+<div class="post-icon">A</div><div><h2>English Grammar Rules</h2>
+<p class="meta">Grammar • Notes</p>
+<p>Clear English grammar explanations with simple Nepali support for learners.</p>
+<a class="read" href="#resources">Read more →</a></div>
+</article>
+<article class="post">
+<div class="post-icon">11</div><div><h2>Grade 11 English Resources</h2>
+<p class="meta">NEB • Grade 11</p>
+<p>Notes, literature guides, writing practice and model questions.</p>
+<a class="read" href="#grade">Read more →</a></div>
+</article>
+<article class="post">
+<div class="post-icon">12</div><div><h2>Grade 12 English Resources</h2>
+<p class="meta">NEB • Grade 12</p>
+<p>Exam-focused materials, grammar, writing and literature support.</p>
+<a class="read" href="#grade">Read more →</a></div>
+</article>
+</div>
 
 <div class="info-card" id="about">
 <h2>Why study here? <span>किन यहाँ?</span></h2>
@@ -90,62 +168,168 @@
 </div>
 
 <div id="resources" class="section-title"><span>LEARNING RESOURCES</span></div>
-<div class="resource-grid">
-<div><h3>Grammar Rules</h3><div id="grammarRulesContainer"></div></div>
-<div><h3>Grammar Exercises</h3><div id="grammarExercisesContainer"></div></div>
-<div><h3>Grammar Quiz</h3><p>Quick quizzes to test your English grammar knowledge.</p><button onclick="startQuiz()">START QUIZ</button></div>
-<div id="tsc"><h3>TSC Materials</h3><div id="tscMaterialsContainer"></div></div>
+
+<!-- ===================== GRAMMAR RULES (accordion, real content) ===================== -->
+<div class="acc-wrap" id="grammar-rules">
+<h3 style="margin-top:0">Grammar Rules</h3>
+<div class="edit-note">यी sample notes हुन् — तपाईं जति चाहनुहुन्छ topic थप्न वा edit गर्न सक्नुहुन्छ (तल HTML मा "acc-item" copy गरेर नयाँ थप्नुहोस्)।</div>
+
+<div class="acc-item">
+  <button class="acc-head" onclick="toggleAcc(this)">Tenses (काल) <span class="arrow">▾</span></button>
+  <div class="acc-body">
+    <h4>Present Simple</h4>
+    <p>Subject + V1 (s/es for 3rd person singular). <i>Example: He goes to school every day.</i></p>
+    <p class="np">दैनिक बानी वा सधैं हुने काम बताउन प्रयोग हुन्छ।</p>
+    <h4>Past Simple</h4>
+    <p>Subject + V2. <i>Example: She visited Pokhara last year.</i></p>
+    <h4>Future Simple</h4>
+    <p>Subject + will/shall + V1. <i>Example: They will attend the class tomorrow.</i></p>
+    <p class="np">यी तीनवटा हुन् basic tense — perfect र continuous forms छिट्टै थपिनेछ।</p>
+  </div>
 </div>
+
+<div class="acc-item">
+  <button class="acc-head" onclick="toggleAcc(this)">Articles (a, an, the) <span class="arrow">▾</span></button>
+  <div class="acc-body">
+    <p><b>a / an</b> — unspecific, singular, countable nouns अगाडि प्रयोग हुन्छ। Consonant sound अगाडि <b>a</b>, vowel sound अगाडि <b>an</b>।</p>
+    <p><i>Example: a book, an apple, a university (sound "yu"), an hour (silent h)</i></p>
+    <p><b>the</b> — specific वा already-known noun अगाडि प्रयोग हुन्छ। <i>Example: The sun rises in the east.</i></p>
+  </div>
+</div>
+
+<div class="acc-item">
+  <button class="acc-head" onclick="toggleAcc(this)">Prepositions (in, on, at, etc.) <span class="arrow">▾</span></button>
+  <div class="acc-body">
+    <p><b>in</b> — महिना, वर्ष, ठूलो ठाउँको लागि। <i>in 2026, in Kathmandu</i></p>
+    <p><b>on</b> — दिन, मिति, सतह (surface) को लागि। <i>on Monday, on the table</i></p>
+    <p><b>at</b> — समय, सानो ठाउँको लागि। <i>at 6 o'clock, at the gate</i></p>
+  </div>
+</div>
+
+<div class="acc-item">
+  <button class="acc-head" onclick="toggleAcc(this)">Active & Passive Voice <span class="arrow">▾</span></button>
+  <div class="acc-body">
+    <p><b>Active:</b> Subject + Verb + Object. <i>Ram wrote a letter.</i></p>
+    <p><b>Passive:</b> Object + be + V3 + by + Subject. <i>A letter was written by Ram.</i></p>
+    <p class="np">Passive voice मा object सुरुमा आउँछ र verb को third form (V3) प्रयोग हुन्छ।</p>
+  </div>
+</div>
+
+<div class="acc-item">
+  <button class="acc-head" onclick="toggleAcc(this)">Tag Questions <span class="arrow">▾</span></button>
+  <div class="acc-body">
+    <p>Positive sentence → negative tag; Negative sentence → positive tag।</p>
+    <p><i>He goes to school every day, <b>doesn't he?</b></i></p>
+    <p><i>She isn't coming today, <b>is she?</b></i></p>
+  </div>
+</div>
+</div>
+
+<!-- ===================== GRAMMAR EXERCISES ===================== -->
+<div class="acc-wrap" id="grammar-exercises" style="margin-top:22px">
+<h3>Grammar Exercises</h3>
+<div class="ex-q">
+  <p>1. She ______ (go) to school every day.</p>
+  <button class="ex-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</button>
+  <div class="ex-ans">Answer: <b>goes</b></div>
+</div>
+<div class="ex-q">
+  <p>2. Choose the correct article: I saw ______ elephant at the zoo.</p>
+  <button class="ex-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</button>
+  <div class="ex-ans">Answer: <b>an</b> (elephant starts with a vowel sound)</div>
+</div>
+<div class="ex-q">
+  <p>3. Change to passive voice: "The teacher teaches the students."</p>
+  <button class="ex-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</button>
+  <div class="ex-ans">Answer: <b>The students are taught by the teacher.</b></div>
+</div>
+<div class="ex-q">
+  <p>4. Fill in the blank preposition: We will meet ______ 5 o'clock ______ the park.</p>
+  <button class="ex-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</button>
+  <div class="ex-ans">Answer: <b>at</b> 5 o'clock, <b>in</b> the park</div>
+</div>
+<div class="ex-q">
+  <p>5. Add the correct tag: You like tea, ______?</p>
+  <button class="ex-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</button>
+  <div class="ex-ans">Answer: <b>don't you</b></div>
+</div>
+</div>
+
+<!-- ===================== TSC MATERIALS ===================== -->
+<div class="acc-wrap" id="tsc" style="margin-top:22px">
+<h3>TSC Materials</h3>
+<ul class="dl-list">
+  <li>English Pedagogy Notes <span><a class="dl-btn" href="#" onclick="alert('Upload your PDF to the repo and link it here.'); return false;">Coming soon</a></span></li>
+  <li>Old Question Sets <span><a class="dl-btn" href="#" onclick="alert('Upload your PDF to the repo and link it here.'); return false;">Coming soon</a></span></li>
+  <li>Teaching Methodology Summary <span><a class="dl-btn" href="#" onclick="alert('Upload your PDF to the repo and link it here.'); return false;">Coming soon</a></span></li>
+</ul>
+<p class="dl-note">⚠️ EDIT ME: PDF फाइल तपाईंको repo मा (जस्तै <code>/files/tsc-notes.pdf</code>) upload गरेर माथिको <code>href="#"</code> लाई त्यो path सँग बदल्नुहोस्।</p>
+</div>
+
 </section>
 
 <aside>
 <div class="side-title">POPULAR RESOURCES</div>
-<div class="side-card"><h3>📗 SEE English</h3><div id="seeEnglishSideContainer"></div></div>
-<div class="side-card"><h3>📘 NEB Grade 11</h3><div id="grade11SideContainer"></div></div>
-<div class="side-card"><h3>📙 NEB Grade 12</h3><div id="grade12SideContainer"></div></div>
+<a class="side-card" href="#grade" style="display:block;text-decoration:none;color:inherit"><h3>📗 SEE English</h3><p>Grammar, writing and model questions.</p></a>
+<a class="side-card" href="#grade" style="display:block;text-decoration:none;color:inherit"><h3>📘 NEB Grade 11</h3><p>Compulsory English notes and practice.</p></a>
+<a class="side-card" href="#grade" style="display:block;text-decoration:none;color:inherit"><h3>📙 NEB Grade 12</h3><p>Literature, writing and exam practice.</p></a>
+
 <div class="side-title blue-title">OUR BOOKS</div>
-<div class="books"><div>English<br><b>Practice Book</b><br><small>Grade 11</small></div><div>Compulsory<br><b>English</b><br><small>Practice Book</small></div></div>
+<div class="books">
+<div>English<br><b>Practice Book</b><br><small>Grade 11</small><br>
+  <a class="dl-btn" style="margin-top:6px;display:inline-block" href="#" onclick="alert('Add your book PDF or order link here.'); return false;">Details</a>
+</div>
+<div>Compulsory<br><b>English</b><br><small>Practice Book</small><br>
+  <a class="dl-btn" style="margin-top:6px;display:inline-block" href="#" onclick="alert('Add your book PDF or order link here.'); return false;">Details</a>
+</div>
+</div>
+
 <div class="side-title green-title">QUICK QUIZ</div>
-<div class="quiz"><p>Which sentence is correct?</p><button onclick="alert('Answer: He goes to school every day.')">Show Answer</button></div>
+<div class="quiz-box" id="quiz-box"></div>
+
 <div id="courses" class="side-title red-title">NEW COURSES</div>
-<div class="side-card"><h3>Spoken English</h3><div id="spokenEnglishContainer"></div></div>
+<div class="side-card"><h3>Spoken English</h3><p>Everyday conversation and communication practice.</p></div>
 </aside>
 </div>
 
 <section id="grade" class="wide-section">
 <div class="section-title"><span>GRADE 11/12 & EXAM PREPARATION</span></div>
 <div class="grade-grid">
-<div><b>Grade 11</b><div id="grade11Container"></div></div>
-<div><b>Grade 12</b><div id="grade12Container"></div></div>
-<div><b>SEE</b><div id="seeEnglishContainer"></div></div>
-<div><b>TSC</b><div id="tscContainer"></div></div>
+<div><b>Grade 11</b><p>Literature • Grammar • Writing • Model Questions</p></div>
+<div><b>Grade 12</b><p>Literature • Grammar • Writing • NEB Practice</p></div>
+<div><b>SEE</b><p>Grammar • Reading • Writing • Model Sets</p></div>
+<div><b>TSC</b><p>License preparation • Pedagogy • Practice</p></div>
 </div>
 </section>
 
 <section id="classes" class="wide-section">
 <div class="section-title"><span>CLASSES</span></div>
 <p class="center">Online and classroom-friendly English learning resources for school-level students and teachers.</p>
-<div id="classesContainer" style="margin-top:14px;max-width:700px;margin-left:auto;margin-right:auto;"></div>
 </section>
 
 <section id="gallery" class="wide-section">
 <div class="section-title"><span>GALLERY</span></div>
-<div class="gallery" id="galleryContainer"></div>
+<div class="gallery-grid">
+  <div class="g-item"><span class="emoji">📚</span><small>Learning</small></div>
+  <div class="g-item"><span class="emoji">🎓</span><small>Classroom</small></div>
+  <div class="g-item"><span class="emoji">📝</span><small>Practice</small></div>
+  <div class="g-item"><span class="emoji">🏫</span><small>School</small></div>
+</div>
+<p class="dl-note">⚠️ EDIT ME: यहाँ real photo राख्न चाहनुभयो भने <code>images/</code> folder मा फोटो हाल्नुहोस् र माथिको emoji लाई <code>&lt;img src="images/yourphoto.jpg"&gt;</code> ले बदल्नुहोस्।</p>
 </section>
 
-<div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
-<img id="lightboxImg" src="" alt="Full view">
-</div>
-
 <section id="notices" class="notice-box">
-<b>NOTICE / सूचना:</b> <span id="noticeText">New English learning materials, model questions and practice sets will be added regularly.</span>
+<b>NOTICE / सूचना:</b> New English learning materials, model questions and practice sets will be added regularly.
 </section>
 
 <section id="contact" class="contact">
 <div><h2>Contact</h2><p>For educational resources, collaboration and learning support.</p></div>
-<form onsubmit="event.preventDefault(); alert('Thank you! The contact form is a demo for now.');">
-<input required placeholder="Your name"><input required type="email" placeholder="Your email">
-<textarea required placeholder="Your message"></textarea><button>SEND MESSAGE</button>
+<!-- ⚠️ EDIT ME: replace YOUREMAIL@example.com with your real email -->
+<form id="contactForm">
+<input required id="cf-name" placeholder="Your name">
+<input required id="cf-email" type="email" placeholder="Your email">
+<textarea required id="cf-msg" placeholder="Your message"></textarea>
+<button type="submit">SEND MESSAGE</button>
 </form>
 </section>
 </main>
@@ -156,118 +340,76 @@
 </footer>
 
 <script>
-function startQuiz(){ alert('Quiz demo: The interactive quiz section can be expanded with your own questions.'); }
-function openLightbox(src){
-document.getElementById('lightboxImg').src = src;
-document.getElementById('lightboxOverlay').classList.add('active');
-}
-function closeLightbox(){
-document.getElementById('lightboxOverlay').classList.remove('active');
+// Accordion toggle (Grammar Rules)
+function toggleAcc(btn){
+  const item = btn.parentElement;
+  const wasOpen = item.classList.contains('open');
+  item.parentElement.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+  if(!wasOpen) item.classList.add('open');
 }
 
-function renderResourceList(containerId, items){
-var el = document.getElementById(containerId);
-if(!el) return;
-if(!items || !items.length){ el.innerHTML = '<p style="font-size:13px;color:#888;">Coming soon.</p>'; return; }
-el.innerHTML = '';
-items.slice().reverse().forEach(function(item){
-var div = document.createElement('div');
-div.className = 'res-item';
-var html = '<h4>' + escapeHtml(item.title || '') + '</h4>';
-if(item.meta){ html += '<p style="font-weight:600;color:#1a5fb4;">' + escapeHtml(item.meta) + '</p>'; }
-if(item.description){ html += '<p>' + escapeHtml(item.description) + '</p>'; }
-if(item.link){ html += '<a class="dl" href="' + item.link + '" target="_blank" rel="noopener">Open / Download →</a>'; }
-div.innerHTML = html;
-el.appendChild(div);
+// Contact form -> opens the user's email app with the message pre-filled (no backend needed)
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('cf-name').value;
+  const email = document.getElementById('cf-email').value;
+  const msg = document.getElementById('cf-msg').value;
+  const to = 'YOUREMAIL@example.com'; // ⚠️ EDIT ME
+  const subject = encodeURIComponent('Message from ' + name + ' (Learning Chautari website)');
+  const body = encodeURIComponent(msg + '\n\n— ' + name + ' (' + email + ')');
+  window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
 });
+
+// ---------------- Quick Quiz (multiple questions, scored) ----------------
+const quizData = [
+  { q:"Which sentence is correct?",
+    opts:["He go to school every day.","He goes to school every day.","He going to school every day."],
+    a:1 },
+  { q:"Choose the correct article: I need ___ umbrella.",
+    opts:["a","an","the"],
+    a:1 },
+  { q:"Pick the correct passive form of: 'They built this house.'",
+    opts:["This house built by them.","This house was built by them.","This house is build by them."],
+    a:1 },
+  { q:"Which preposition is correct? She was born ___ 2005.",
+    opts:["in","on","at"],
+    a:0 },
+  { q:"Choose the correct tag: You are coming, ___?",
+    opts:["aren't you","isn't it","don't you"],
+    a:0 }
+];
+let qIndex = 0, qScore = 0;
+
+function renderQuiz(){
+  const box = document.getElementById('quiz-box');
+  if(qIndex >= quizData.length){
+    box.innerHTML = `<div class="quiz-result">🎉 Score: <b>${qScore} / ${quizData.length}</b><br>
+      <button class="ex-btn" style="margin-top:10px" onclick="qIndex=0;qScore=0;renderQuiz()">Try Again</button></div>`;
+    return;
+  }
+  const item = quizData[qIndex];
+  box.innerHTML = `
+    <div class="quiz-progress">Question ${qIndex+1} of ${quizData.length}</div>
+    <div class="quiz-question">${item.q}</div>
+    <div class="quiz-opts">
+      ${item.opts.map((o,i)=>`<button class="quiz-opt" onclick="answerQuiz(${i})">${o}</button>`).join('')}
+    </div>`;
 }
 
-function escapeHtml(str){
-var d = document.createElement('div');
-d.textContent = str;
-return d.innerHTML;
+function answerQuiz(choice){
+  const item = quizData[qIndex];
+  const btns = document.querySelectorAll('#quiz-box .quiz-opt');
+  btns.forEach((b,i)=>{
+    b.disabled = true;
+    if(i === item.a) b.classList.add('correct');
+    else if(i === choice) b.classList.add('wrong');
+  });
+  if(choice === item.a) qScore++;
+  setTimeout(()=>{ qIndex++; renderQuiz(); }, 900);
 }
+renderQuiz();
 
-function buildDropdown(menuId, items, seeAllHref){
-var el = document.getElementById(menuId);
-if(!el) return;
-el.innerHTML = '';
-if(!items || !items.length){
-el.innerHTML = '<span class="empty-item">Coming soon.</span>';
-return;
-}
-items.slice().reverse().slice(0, 8).forEach(function(item){
-var a = document.createElement('a');
-a.textContent = item.title || '';
-if(item.link){ a.href = item.link; a.target = '_blank'; a.rel = 'noopener'; }
-else { a.href = seeAllHref; }
-el.appendChild(a);
-});
-if(seeAllHref){
-var seeAll = document.createElement('a');
-seeAll.className = 'see-all';
-seeAll.href = seeAllHref;
-seeAll.textContent = 'View all →';
-el.appendChild(seeAll);
-}
-}
-
-fetch('data.json?t=' + Date.now())
-.then(r => r.json())
-.then(data => {
-if(data.notice){ document.getElementById('noticeText').textContent = data.notice; }
-
-if(data.gallery && data.gallery.length){
-var container = document.getElementById('galleryContainer');
-container.innerHTML = '';
-data.gallery.forEach(function(src){
-var div = document.createElement('div');
-var img = document.createElement('img');
-img.src = src; img.alt = 'Gallery photo'; img.loading = 'lazy';
-img.onclick = function(){ openLightbox(img.src); };
-div.appendChild(img);
-container.appendChild(div);
-});
-}
-
-var s = data.sections || {};
-
-// Recent posts (special card style, reuse existing markup style)
-var rp = document.getElementById('recentPostsContainer');
-if(s.recentPosts && s.recentPosts.length){
-rp.innerHTML = '';
-s.recentPosts.slice().reverse().forEach(function(post, i){
-var art = document.createElement('article');
-art.className = 'post';
-var icon = (post.title||'?').charAt(0).toUpperCase();
-var linkHtml = post.link ? '<a class="read" href="'+post.link+'" target="_blank" rel="noopener">Read more →</a>' : '<a class="read" href="#resources">Read more →</a>';
-art.innerHTML = '<div class="post-icon">'+icon+'</div><div><h2>'+escapeHtml(post.title||'')+'</h2>'+
-(post.meta ? '<p class="meta">'+escapeHtml(post.meta)+'</p>' : '')+
-'<p>'+escapeHtml(post.description||'')+'</p>'+linkHtml+'</div>';
-rp.appendChild(art);
-});
-}
-
-renderResourceList('grammarRulesContainer', s.grammarRules);
-renderResourceList('grammarExercisesContainer', s.grammarExercises);
-renderResourceList('tscMaterialsContainer', s.tscMaterials);
-renderResourceList('tscContainer', s.tscMaterials);
-renderResourceList('grade11Container', s.grade11);
-renderResourceList('grade11SideContainer', s.grade11);
-renderResourceList('grade12Container', s.grade12);
-renderResourceList('grade12SideContainer', s.grade12);
-renderResourceList('seeEnglishContainer', s.seeEnglish);
-renderResourceList('seeEnglishSideContainer', s.seeEnglish);
-renderResourceList('spokenEnglishContainer', s.spokenEnglish);
-renderResourceList('classesContainer', s.classes);
-
-// Build top-menu dropdowns with the same added content, list-wise
-buildDropdown('menuGrammar', (s.grammarRules || []).concat(s.grammarExercises || []), '#resources');
-buildDropdown('menuGrade', (s.grade11 || []).concat(s.grade12 || []).concat(s.seeEnglish || []), '#grade');
-buildDropdown('menuClasses', (s.classes || []).concat(s.spokenEnglish || []), '#classes');
-buildDropdown('menuTsc', s.tscMaterials || [], '#tsc');
-})
-.catch(function(e){ console.log('data.json not loaded, using defaults', e); });
+function startQuiz(){ document.getElementById('quiz-box').scrollIntoView({behavior:'smooth'}); }
 </script>
 </body>
 </html>
