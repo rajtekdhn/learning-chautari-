@@ -1,0 +1,37 @@
+
+/* ============================================================
+   MULTI-PAGE NAV: dropdown submenus using <details>/<summary>
+   Works without JavaScript, on desktop and mobile alike.
+   ============================================================ */
+.mainnav{position:relative;overflow:visible}
+.nav-item{position:relative;display:inline-block}
+.nav-item > a.top-link{color:#fff;text-decoration:none;padding:15px 14px;font-size:13px;font-weight:bold;display:inline-block}
+.nav-item > a.top-link:hover,.nav-item > a.top-link.active{background:#087ed8}
+
+details.nav-details{display:inline-block;position:relative}
+details.nav-details summary{list-style:none;cursor:pointer;color:#fff;padding:15px 14px;font-size:13px;font-weight:bold;display:inline-block;user-select:none}
+details.nav-details summary::-webkit-details-marker{display:none}
+details.nav-details summary:hover{background:#087ed8}
+details.nav-details[open] summary{background:#087ed8}
+details.nav-details .dropdown{position:absolute;top:100%;left:0;background:#fff;min-width:220px;box-shadow:0 6px 16px rgba(0,0,0,.18);z-index:80;border-radius:0 0 6px 6px;overflow:hidden;display:flex;flex-direction:column}
+.dropdown a{color:#222;text-decoration:none;padding:10px 16px;font-size:13px;border-bottom:1px solid #eee;text-align:left}
+.dropdown a:last-child{border-bottom:none}
+.dropdown a:hover{background:#eef6ff;color:#0789ef}
+.dropdown a.active{color:#07954b;font-weight:bold}
+
+@media(max-width:800px){
+  .mainnav{flex-direction:column;align-items:stretch}
+  details.nav-details,.nav-item{display:block;width:100%}
+  details.nav-details summary,.nav-item > a.top-link{padding:12px 16px;text-align:left}
+  details.nav-details .dropdown{position:static;box-shadow:none;border-radius:0;background:#f2f8ff}
+  .dropdown a{padding:10px 26px}
+}
+
+/* Breadcrumb / page header used on inner pages */
+.page-head{max-width:1170px;margin:18px auto 0;padding:0 18px}
+.page-head h1{font-family:Georgia,serif;color:#082a68;margin:0 0 4px;font-size:30px}
+.page-head p{color:#777;margin:0 0 16px;font-size:14px}
+.crumb{font-size:12px;color:#999}
+.crumb a{color:#0789ef;text-decoration:none}
+
+.simple-section{max-width:1170px;margin:0 auto;padding:0 18px 30px}

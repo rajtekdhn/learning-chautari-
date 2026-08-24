@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tek Raj Kapadi — Learning Chautari with TEK RAJ | Gallery</title>
+<meta name="description" content="English learning resources, grammar, Grade 11/12, SEE, NEB and TSC materials.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="nav-extra.css">
+<style>
+  /* Accordion (Grammar Rules / Exercises / TSC Materials) */
+  .acc-item{border:1px solid #e3e3e3;border-radius:10px;margin-bottom:10px;overflow:hidden;background:#fff}
+  .acc-head{width:100%;text-align:left;background:#f7f8fa;border:none;padding:14px 16px;font-weight:600;
+             cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:15px}
+  .acc-head:hover{background:#eef1f5}
+  .acc-head .arrow{transition:transform .2s ease}
+  .acc-item.open .arrow{transform:rotate(180deg)}
+  .acc-body{max-height:0;overflow:hidden;transition:max-height .25s ease;padding:0 16px}
+  .acc-item.open .acc-body{max-height:900px;padding:12px 16px 16px}
+  .acc-body h4{margin:10px 0 4px;font-size:14px;color:#1f4fd6}
+  .acc-body p{margin:4px 0;line-height:1.55}
+  .acc-body .np{color:#666;font-size:13.5px}
+
+  /* Exercises */
+  .ex-q{border-bottom:1px dashed #ddd;padding:10px 0}
+  .ex-q:last-child{border-bottom:none}
+  .ex-ans{display:none;margin-top:6px;background:#eefbea;border-left:3px solid #34a853;
+          padding:8px 10px;border-radius:6px;font-size:14px}
+  .ex-ans.show{display:block}
+  .ex-btn{margin-top:6px;font-size:13px;padding:5px 10px;border-radius:6px;border:1px solid #34a853;
+          background:#fff;color:#219150;cursor:pointer}
+  .ex-btn:hover{background:#219150;color:#fff}
+
+  /* Quiz */
+  .quiz-box{background:#fff;border:1px solid #e3e3e3;border-radius:10px;padding:16px}
+  .quiz-progress{font-size:13px;color:#777;margin-bottom:8px}
+  .quiz-question{font-weight:600;margin-bottom:10px}
+  .quiz-opts{display:flex;flex-direction:column;gap:8px}
+  .quiz-opt{text-align:left;padding:9px 12px;border-radius:8px;border:1px solid #ccc;background:#fafafa;
+            cursor:pointer;font-size:14.5px}
+  .quiz-opt:hover{background:#eef1f5}
+  .quiz-opt.correct{background:#dbf7dc;border-color:#34a853}
+  .quiz-opt.wrong{background:#fbdede;border-color:#e0453c}
+  .quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+  .quiz-result{text-align:center;font-size:16px;padding:20px 0}
+
+  /* Gallery */
+  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .g-item{background:#fff;border:1px solid #e3e3e3;border-radius:10px;padding:20px 10px;text-align:center;scroll-margin-top:120px}
+  .g-item .emoji{font-size:34px;display:block;margin-bottom:6px}
+  .g-item small{color:#777}
+
+  /* Downloads / resource lists */
+  .dl-list{list-style:none;padding:0;margin:0}
+  .dl-list li{display:flex;justify-content:space-between;align-items:center;padding:9px 0;
+              border-bottom:1px solid #eee;font-size:14.5px;scroll-margin-top:120px}
+  .dl-list li:last-child{border-bottom:none}
+  .dl-btn{font-size:12.5px;padding:5px 10px;border-radius:6px;border:1px solid #1f4fd6;
+          color:#1f4fd6;background:#fff;text-decoration:none}
+  .dl-btn:hover{background:#1f4fd6;color:#fff}
+  .dl-note{font-size:12px;color:#999}
+
+  /* Social icons as real links (keeps the original round-badge look) */
+  .social a{width:22px;height:22px;border-radius:50%;background:#fff;color:#0789ef;
+            display:grid;place-items:center;font-weight:bold;text-decoration:none}
+
+  .edit-note{background:#fff8e1;border:1px dashed #e0b400;border-radius:8px;padding:8px 12px;
+             font-size:12.5px;color:#7a5b00;margin:8px 0}
+
+  /* scroll offset so in-page anchors land below sticky-ish header content */
+  h3[id],div[id]{scroll-margin-top:20px}
+</style>
+</head>
+<body>
+
+<header>
+<div class="topbar">
+<div class="toplinks">
+<a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+<a href="grammar.html">Resources</a><a href="grade.html">Grade 11/12</a><a href="classes.html">Classes</a>
+<a href="gallery.html">Gallery</a><a href="tsc.html">TSC Materials</a>
+</div>
+<!-- Social links -->
+<div class="social">
+  <a href="#" title="Facebook">f</a>
+  <a href="#" title="X (Twitter)">𝕏</a>
+  <a href="#" title="Instagram">◎</a>
+  <a href="#" title="YouTube">▶</a>
+</div>
+</div>
+
+<div class="brand" id="home">
+<div class="avatar-wrap"><img src="teacher-photo.jpg" alt="Tek Raj Kapadi" onerror="this.onerror=null;this.src='teacher-photo.svg'"></div>
+<div>
+<div class="official">Tek Raj Kapadi's Educational Website</div>
+<h1><span>Learning Chautari </span> <b>With TEKRAJ </b></h1>
+<p>English Teacher • Educator • Learning Resources</p>
+</div>
+</div>
+
+<nav class="mainnav">
+<div class="nav-item"><a class="top-link" href="index.html">HOME</a></div>
+<details class="nav-details">
+<summary class="">GRAMMAR <span class="arrow">▾</span></summary>
+<div class="dropdown">
+<a class="" href="grammar.html">Grammar Overview</a>
+<a class="" href="grammar.html#tenses">Tenses</a>
+<a class="" href="grammar.html#articles">Articles</a>
+<a class="" href="grammar.html#prepositions">Prepositions</a>
+<a class="" href="grammar.html#voice">Active & Passive Voice</a>
+<a class="" href="grammar.html#tags">Tag Questions</a>
+<a class="" href="grammar.html#exercises">Grammar Exercises</a>
+</div>
+</details>
+<details class="nav-details">
+<summary class="">GRADE 11/12 <span class="arrow">▾</span></summary>
+<div class="dropdown">
+<a class="" href="grade.html">Grade 11/12 Overview</a>
+<a class="" href="grade.html#grade11">Grade 11</a>
+<a class="" href="grade.html#grade12">Grade 12</a>
+<a class="" href="grade.html#see">SEE</a>
+<a class="" href="grade.html#tsc-prep">TSC (License Prep)</a>
+</div>
+</details>
+<details class="nav-details">
+<summary class="">CLASSES <span class="arrow">▾</span></summary>
+<div class="dropdown">
+<a class="" href="classes.html">Classes Overview</a>
+<a class="" href="classes.html#spoken-english">Spoken English</a>
+<a class="" href="classes.html#new-courses">New Courses</a>
+</div>
+</details>
+<details class="nav-details">
+<summary class="active">GALLERY <span class="arrow">▾</span></summary>
+<div class="dropdown">
+<a class="active" href="gallery.html">Gallery Overview</a>
+<a class="" href="gallery.html#learning">Learning</a>
+<a class="" href="gallery.html#classroom">Classroom</a>
+<a class="" href="gallery.html#practice">Practice</a>
+<a class="" href="gallery.html#school">School</a>
+</div>
+</details>
+<details class="nav-details">
+<summary class="">TSC MATERIALS <span class="arrow">▾</span></summary>
+<div class="dropdown">
+<a class="" href="tsc.html">TSC Overview</a>
+<a class="" href="tsc.html#pedagogy">English Pedagogy Notes</a>
+<a class="" href="tsc.html#question-sets">Old Question Sets</a>
+<a class="" href="tsc.html#methodology">Teaching Methodology Summary</a>
+</div>
+</details>
+<div class="nav-item"><a class="top-link" href="classes.html#new-courses">NEW COURSES</a></div>
+<div class="nav-item"><a class="top-link" href="notices.html">NOTICES</a></div>
+</nav>
+</header>
+
+<div class="page-head">
+<p class="crumb"><a href="index.html">Home</a> / Gallery</p>
+<h1>🖼️ Gallery</h1>
+<p>A look at learning, classroom life, practice sessions and school moments.</p>
+</div>
+
+<div class="simple-section">
+<div class="gallery-grid">
+  <div class="g-item" id="learning"><span class="emoji">📚</span><small>Learning</small></div>
+  <div class="g-item" id="classroom"><span class="emoji">🎓</span><small>Classroom</small></div>
+  <div class="g-item" id="practice"><span class="emoji">📝</span><small>Practice</small></div>
+  <div class="g-item" id="school"><span class="emoji">🏫</span><small>School</small></div>
+</div>
+<p class="dl-note">⚠️ EDIT ME: यहाँ real photo राख्न चाहनुभयो भने <code>images/</code> folder मा फोटो हाल्नुहोस् र माथिको emoji लाई <code>&lt;img src="images/yourphoto.jpg"&gt;</code> ले बदल्नुहोस्।</p>
+</div>
+
+<footer>
+<strong>TEK RAJ KAPADI — LEARN ENGLISH</strong>
+<p>English learning resources for Nepali students • © 2026 Tek Raj Kapadi</p>
+</footer>
+
+<script>
+// Accordion toggle (Grammar Rules)
+function toggleAcc(btn){
+  const item = btn.parentElement;
+  const wasOpen = item.classList.contains('open');
+  item.parentElement.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+  if(!wasOpen) item.classList.add('open');
+}
+
+// Close other open dropdown menus when one opens (nice-to-have on desktop)
+document.querySelectorAll('details.nav-details').forEach(d=>{
+  d.addEventListener('toggle', function(){
+    if(this.open){
+      document.querySelectorAll('details.nav-details').forEach(o=>{ if(o!==this) o.open=false; });
+    }
+  });
+});
+</script>
+</body>
+</html>
