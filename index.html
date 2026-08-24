@@ -20,6 +20,14 @@
 .res-item p{margin:0 0 6px;font-size:13px;color:#555;}
 .res-item a.dl{font-size:13px;color:#1a5fb4;font-weight:600;text-decoration:none;}
 .res-item a.dl:hover{text-decoration:underline;}
+.nav-drop{position:relative;}
+.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;min-width:240px;max-width:320px;box-shadow:0 6px 16px rgba(0,0,0,.18);z-index:100;flex-direction:column;border-radius:0 0 6px 6px;overflow:hidden;max-height:360px;overflow-y:auto;}
+.nav-drop:hover .dropdown-menu{display:flex;}
+.dropdown-menu a{color:#222 !important;text-decoration:none;padding:10px 14px !important;font-size:12px !important;font-weight:normal !important;border-bottom:1px solid #eee;background:#fff;white-space:normal;line-height:1.4;}
+.dropdown-menu a:hover{background:#eaf4ff !important;color:#0789ef !important;}
+.nav-drop:hover>a{background:#087ed8;}
+.dropdown-menu .empty-item{padding:10px 14px;font-size:12px;color:#999;}
+.dropdown-menu .see-all{background:#f4f8fc;font-weight:bold;color:#0789ef !important;}
 </style>
 </head>
 <body>
@@ -42,11 +50,11 @@
 </div>
 <nav class="mainnav">
 <a class="active" href="#home">HOME</a>
-<a href="#resources">GRAMMAR ▾</a>
-<a href="#grade">GRADE 11/12 ▾</a>
-<a href="#classes">CLASSES ▾</a>
-<a href="#gallery">GALLERY ▾</a>
-<a href="#tsc">TSC MATERIALS ▾</a>
+<div class="nav-drop"><a href="#resources">GRAMMAR ▾</a><div class="dropdown-menu" id="menuGrammar"></div></div>
+<div class="nav-drop"><a href="#grade">GRADE 11/12 ▾</a><div class="dropdown-menu" id="menuGrade"></div></div>
+<div class="nav-drop"><a href="#classes">CLASSES ▾</a><div class="dropdown-menu" id="menuClasses"></div></div>
+<div class="nav-drop"><a href="#gallery">GALLERY ▾</a></div>
+<div class="nav-drop"><a href="#tsc">TSC MATERIALS ▾</a><div class="dropdown-menu" id="menuTsc"></div></div>
 <a href="#courses">NEW COURSES</a>
 <a href="#notices">NOTICES</a>
 </nav>
@@ -117,6 +125,7 @@
 <section id="classes" class="wide-section">
 <div class="section-title"><span>CLASSES</span></div>
 <p class="center">Online and classroom-friendly English learning resources for school-level students and teachers.</p>
+<div id="classesContainer" style="margin-top:14px;max-width:700px;margin-left:auto;margin-right:auto;"></div>
 </section>
 
 <section id="gallery" class="wide-section">
@@ -179,6 +188,30 @@ d.textContent = str;
 return d.innerHTML;
 }
 
+function buildDropdown(menuId, items, seeAllHref){
+var el = document.getElementById(menuId);
+if(!el) return;
+el.innerHTML = '';
+if(!items || !items.length){
+el.innerHTML = '<span class="empty-item">Coming soon.</span>';
+return;
+}
+items.slice().reverse().slice(0, 8).forEach(function(item){
+var a = document.createElement('a');
+a.textContent = item.title || '';
+if(item.link){ a.href = item.link; a.target = '_blank'; a.rel = 'noopener'; }
+else { a.href = seeAllHref; }
+el.appendChild(a);
+});
+if(seeAllHref){
+var seeAll = document.createElement('a');
+seeAll.className = 'see-all';
+seeAll.href = seeAllHref;
+seeAll.textContent = 'View all →';
+el.appendChild(seeAll);
+}
+}
+
 fetch('data.json?t=' + Date.now())
 .then(r => r.json())
 .then(data => {
@@ -226,6 +259,13 @@ renderResourceList('grade12SideContainer', s.grade12);
 renderResourceList('seeEnglishContainer', s.seeEnglish);
 renderResourceList('seeEnglishSideContainer', s.seeEnglish);
 renderResourceList('spokenEnglishContainer', s.spokenEnglish);
+renderResourceList('classesContainer', s.classes);
+
+// Build top-menu dropdowns with the same added content, list-wise
+buildDropdown('menuGrammar', (s.grammarRules || []).concat(s.grammarExercises || []), '#resources');
+buildDropdown('menuGrade', (s.grade11 || []).concat(s.grade12 || []).concat(s.seeEnglish || []), '#grade');
+buildDropdown('menuClasses', (s.classes || []).concat(s.spokenEnglish || []), '#classes');
+buildDropdown('menuTsc', s.tscMaterials || [], '#tsc');
 })
 .catch(function(e){ console.log('data.json not loaded, using defaults', e); });
 </script>
