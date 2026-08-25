@@ -82,10 +82,10 @@
 </div>
 <!-- Social links -->
 <div class="social">
-  <a href="#" title="Facebook">f</a>
-  <a href="#" title="X (Twitter)">𝕏</a>
-  <a href="#" title="Instagram">◎</a>
-  <a href="#" title="YouTube">▶</a>
+  <a href="#" title="Facebook" data-social="facebook">f</a>
+  <a href="#" title="Instagram" data-social="instagram">◎</a>
+  <a href="#" title="YouTube" data-social="youtube">▶</a>
+  <a href="#" title="TikTok" data-social="tiktok">♪</a>
 </div>
 </div>
 
@@ -198,6 +198,11 @@
 </article>
 </div>
 
+<div style="margin-top:14px">
+<h3 style="font-size:15px;margin:0 0 8px">More Updates</h3>
+<div data-dyn-section="recentPosts"></div>
+</div>
+
 <div class="info-card" id="about-snippet">
 <h2>Why study here? <span>किन यहाँ?</span></h2>
 <div class="features">
@@ -236,7 +241,7 @@
 </div>
 
 <section id="notices" class="notice-box">
-<b>NOTICE / सूचना:</b> New English learning materials, model questions and practice sets will be added regularly.
+<b>NOTICE / सूचना:</b> <span data-dyn="notice-text">New English learning materials, model questions and practice sets will be added regularly.</span>
 <a href="notices.html" style="margin-left:8px">See all notices →</a>
 </section>
 
@@ -315,5 +320,6 @@ document.querySelectorAll('details.nav-details').forEach(d=>{
   });
 });
 </script>
+<script src="site.js"></script>
 </body>
 </html>
