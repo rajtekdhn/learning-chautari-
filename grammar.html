@@ -82,10 +82,10 @@
 </div>
 <!-- Social links -->
 <div class="social">
-  <a href="#" title="Facebook">f</a>
-  <a href="#" title="X (Twitter)">𝕏</a>
-  <a href="#" title="Instagram">◎</a>
-  <a href="#" title="YouTube">▶</a>
+  <a href="#" title="Facebook" data-social="facebook">f</a>
+  <a href="#" title="Instagram" data-social="instagram">◎</a>
+  <a href="#" title="YouTube" data-social="youtube">▶</a>
+  <a href="#" title="TikTok" data-social="tiktok">♪</a>
 </div>
 </div>
 
@@ -215,6 +215,10 @@
     <p><i>She isn't coming today, <b>is she?</b></i></p>
   </div>
 </div>
+<div style="margin-top:14px">
+<h4 style="font-size:14px;margin:0 0 6px">More Grammar Notes</h4>
+<div data-dyn-section="grammarRules"></div>
+</div>
 </div>
 
 <div class="acc-wrap" id="exercises" style="margin-top:22px">
@@ -244,6 +248,10 @@
   <button class="ex-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</button>
   <div class="ex-ans">Answer: <b>don't you</b></div>
 </div>
+<div style="margin-top:14px">
+<h4 style="font-size:14px;margin:0 0 6px">More Exercises</h4>
+<div data-dyn-section="grammarExercises"></div>
+</div>
 </div>
 
 </div>
@@ -271,5 +279,6 @@ document.querySelectorAll('details.nav-details').forEach(d=>{
   });
 });
 </script>
+<script src="site.js"></script>
 </body>
 </html>
