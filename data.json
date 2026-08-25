@@ -1,5 +1,11 @@
 {
   "notice": "New English learning materials, model questions and practice sets will be added regularly.",
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "youtube": "",
+    "tiktok": ""
+  },
   "gallery": [
     "images/041.jpg",
     "images/12.jpg",
@@ -13,26 +19,26 @@
   "sections": {
     "recentPosts": [
       {
-        "title": "Tag Questions — Practice Yourself",
-        "meta": "Grammar • Practice • Quiz",
+        "title": "Tag Questions â€” Practice Yourself",
+        "meta": "Grammar â€¢ Practice â€¢ Quiz",
         "description": "Learn the rules of tag questions with simple examples and practice activities.",
         "link": ""
       },
       {
         "title": "English Grammar Rules",
-        "meta": "Grammar • Notes",
+        "meta": "Grammar â€¢ Notes",
         "description": "Clear English grammar explanations with simple Nepali support for learners.",
         "link": ""
       },
       {
         "title": "Grade 11 English Resources",
-        "meta": "NEB • Grade 11",
+        "meta": "NEB â€¢ Grade 11",
         "description": "Notes, literature guides, writing practice and model questions.",
         "link": ""
       },
       {
         "title": "Grade 12 English Resources",
-        "meta": "NEB • Grade 12",
+        "meta": "NEB â€¢ Grade 12",
         "description": "Exam-focused materials, grammar, writing and literature support.",
         "link": ""
       }
@@ -61,21 +67,21 @@
     "grade11": [
       {
         "title": "Grade 11 Compulsory English Notes",
-        "description": "Literature • Grammar • Writing • Model Questions",
+        "description": "Literature â€¢ Grammar â€¢ Writing â€¢ Model Questions",
         "link": ""
       }
     ],
     "grade12": [
       {
         "title": "Grade 12 Compulsory English Notes",
-        "description": "Literature • Grammar • Writing • NEB Practice",
+        "description": "Literature â€¢ Grammar â€¢ Writing â€¢ NEB Practice",
         "link": ""
       }
     ],
     "seeEnglish": [
       {
         "title": "SEE English Grammar & Writing",
-        "description": "Grammar • Reading • Writing • Model Sets",
+        "description": "Grammar â€¢ Reading â€¢ Writing â€¢ Model Sets",
         "link": ""
       }
     ],
@@ -88,11 +94,12 @@
     ],
     "classes": [
       {
-        "title": "Online Speaking Class — Batch 1",
+        "title": "Online Speaking Class â€” Batch 1",
         "meta": "Classes",
         "description": "Weekly online speaking and grammar practice class for school students.",
         "link": ""
       }
-    ]
+    ],
+    "notices": []
   }
 }
