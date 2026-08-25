@@ -82,10 +82,10 @@
 </div>
 <!-- Social links -->
 <div class="social">
-  <a href="#" title="Facebook">f</a>
-  <a href="#" title="X (Twitter)">𝕏</a>
-  <a href="#" title="Instagram">◎</a>
-  <a href="#" title="YouTube">▶</a>
+  <a href="#" title="Facebook" data-social="facebook">f</a>
+  <a href="#" title="Instagram" data-social="instagram">◎</a>
+  <a href="#" title="YouTube" data-social="youtube">▶</a>
+  <a href="#" title="TikTok" data-social="tiktok">♪</a>
 </div>
 </div>
 
@@ -167,6 +167,10 @@
   <li id="question-sets">Old Question Sets <span><a class="dl-btn" href="#" onclick="alert('Upload your PDF to the repo and link it here.'); return false;">Coming soon</a></span></li>
   <li id="methodology">Teaching Methodology Summary <span><a class="dl-btn" href="#" onclick="alert('Upload your PDF to the repo and link it here.'); return false;">Coming soon</a></span></li>
 </ul>
+<div style="margin-top:14px">
+<h4 style="font-size:14px;margin:0 0 6px">More TSC Materials</h4>
+<div data-dyn-section="tscMaterials"></div>
+</div>
 <p class="dl-note">⚠️ EDIT ME: PDF फाइल तपाईंको repo मा (जस्तै <code>/files/tsc-notes.pdf</code>) upload गरेर माथिको <code>href="#"</code> लाई त्यो path सँग बदल्नुहोस्।</p>
 </div>
 </div>
@@ -194,5 +198,6 @@ document.querySelectorAll('details.nav-details').forEach(d=>{
   });
 });
 </script>
+<script src="site.js"></script>
 </body>
 </html>
