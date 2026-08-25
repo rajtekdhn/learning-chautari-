@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tek Raj Kapadi — Learning Chautari with TEK RAJ | Classes</title>
+<title>Tek Raj Kapadi — Learning Chautari with TEK RAJ | Contact</title>
 <meta name="description" content="English learning resources, grammar, Grade 11/12, SEE, NEB and TSC materials.">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="nav-extra.css">
@@ -123,9 +123,9 @@
 </div>
 </details>
 <details class="nav-details">
-<summary class="active">CLASSES <span class="arrow">▾</span></summary>
+<summary class="">CLASSES <span class="arrow">▾</span></summary>
 <div class="dropdown">
-<a class="active" href="classes.html">Classes Overview</a>
+<a class="" href="classes.html">Classes Overview</a>
 <a class="" href="classes.html#spoken-english">Spoken English</a>
 <a class="" href="classes.html#new-courses">New Courses</a>
 </div>
@@ -149,33 +149,39 @@
 <a class="" href="tsc.html#methodology">Teaching Methodology Summary</a>
 </div>
 </details>
-<div class="nav-item"><a class="top-link active" href="classes.html#new-courses">NEW COURSES</a></div>
+<div class="nav-item"><a class="top-link" href="classes.html#new-courses">NEW COURSES</a></div>
 <div class="nav-item"><a class="top-link" href="notices.html">NOTICES</a></div>
 </nav>
 </header>
 
 <div class="page-head">
-<p class="crumb"><a href="index.html">Home</a> / Classes</p>
-<h1>🎤 Classes</h1>
-<p>Online and classroom-friendly English learning resources for school-level students and teachers.</p>
+<p class="crumb"><a href="index.html">Home</a> / Contact</p>
+<h1>Contact</h1>
+<p>For educational resources, collaboration and learning support.</p>
 </div>
 
 <div class="simple-section">
-<section id="spoken-english" class="wide-section">
-<div class="section-title"><span>SPOKEN ENGLISH</span></div>
-<p>Everyday conversation and communication practice, designed to build confidence in real-life spoken English.</p>
-<div data-dyn-section="spokenEnglish" style="margin-top:10px"></div>
-</section>
-
-<section id="new-courses" class="wide-section" style="margin-top:20px">
-<div class="section-title"><span>NEW COURSES</span></div>
-<div class="grade-grid">
-<div><b>Spoken English</b><p>Everyday conversation and communication practice.</p></div>
-</div>
-<div data-dyn-section="classes" style="margin-top:10px"></div>
+<section class="contact" style="margin-top:0;grid-template-columns:1fr">
+<form id="contactForm">
+<input required id="cf-name" placeholder="Your name">
+<input required id="cf-email" type="email" placeholder="Your email">
+<textarea required id="cf-msg" placeholder="Your message"></textarea>
+<button type="submit">SEND MESSAGE</button>
+</form>
 </section>
 </div>
-
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('cf-name').value;
+  const email = document.getElementById('cf-email').value;
+  const msg = document.getElementById('cf-msg').value;
+  const to = 'YOUREMAIL@example.com'; // EDIT ME
+  const subject = encodeURIComponent('Message from ' + name + ' (Learning Chautari website)');
+  const body = encodeURIComponent(msg + '\n\n— ' + name + ' (' + email + ')');
+  window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+});
+</script>
 <footer>
 <strong>TEK RAJ KAPADI — LEARN ENGLISH</strong>
 <p>English learning resources for Nepali students • © 2026 Tek Raj Kapadi</p>
