@@ -3,196 +3,403 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tek Raj Kapadi — Learning Chautari with TEK RAJ | About</title>
-<meta name="description" content="English learning resources, grammar, Grade 11/12, SEE, NEB and TSC materials.">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="nav-extra.css">
+<title>Admin Panel — Tek Raj Kapadi</title>
 <style>
-  /* Accordion (Grammar Rules / Exercises / TSC Materials) */
-  .acc-item{border:1px solid #e3e3e3;border-radius:10px;margin-bottom:10px;overflow:hidden;background:#fff}
-  .acc-head{width:100%;text-align:left;background:#f7f8fa;border:none;padding:14px 16px;font-weight:600;
-             cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:15px}
-  .acc-head:hover{background:#eef1f5}
-  .acc-head .arrow{transition:transform .2s ease}
-  .acc-item.open .arrow{transform:rotate(180deg)}
-  .acc-body{max-height:0;overflow:hidden;transition:max-height .25s ease;padding:0 16px}
-  .acc-item.open .acc-body{max-height:900px;padding:12px 16px 16px}
-  .acc-body h4{margin:10px 0 4px;font-size:14px;color:#1f4fd6}
-  .acc-body p{margin:4px 0;line-height:1.55}
-  .acc-body .np{color:#666;font-size:13.5px}
-
-  /* Exercises */
-  .ex-q{border-bottom:1px dashed #ddd;padding:10px 0}
-  .ex-q:last-child{border-bottom:none}
-  .ex-ans{display:none;margin-top:6px;background:#eefbea;border-left:3px solid #34a853;
-          padding:8px 10px;border-radius:6px;font-size:14px}
-  .ex-ans.show{display:block}
-  .ex-btn{margin-top:6px;font-size:13px;padding:5px 10px;border-radius:6px;border:1px solid #34a853;
-          background:#fff;color:#219150;cursor:pointer}
-  .ex-btn:hover{background:#219150;color:#fff}
-
-  /* Quiz */
-  .quiz-box{background:#fff;border:1px solid #e3e3e3;border-radius:10px;padding:16px}
-  .quiz-progress{font-size:13px;color:#777;margin-bottom:8px}
-  .quiz-question{font-weight:600;margin-bottom:10px}
-  .quiz-opts{display:flex;flex-direction:column;gap:8px}
-  .quiz-opt{text-align:left;padding:9px 12px;border-radius:8px;border:1px solid #ccc;background:#fafafa;
-            cursor:pointer;font-size:14.5px}
-  .quiz-opt:hover{background:#eef1f5}
-  .quiz-opt.correct{background:#dbf7dc;border-color:#34a853}
-  .quiz-opt.wrong{background:#fbdede;border-color:#e0453c}
-  .quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
-  .quiz-result{text-align:center;font-size:16px;padding:20px 0}
-
-  /* Gallery */
-  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
-  .g-item{background:#fff;border:1px solid #e3e3e3;border-radius:10px;padding:20px 10px;text-align:center;scroll-margin-top:120px}
-  .g-item .emoji{font-size:34px;display:block;margin-bottom:6px}
-  .g-item small{color:#777}
-
-  /* Downloads / resource lists */
-  .dl-list{list-style:none;padding:0;margin:0}
-  .dl-list li{display:flex;justify-content:space-between;align-items:center;padding:9px 0;
-              border-bottom:1px solid #eee;font-size:14.5px;scroll-margin-top:120px}
-  .dl-list li:last-child{border-bottom:none}
-  .dl-btn{font-size:12.5px;padding:5px 10px;border-radius:6px;border:1px solid #1f4fd6;
-          color:#1f4fd6;background:#fff;text-decoration:none}
-  .dl-btn:hover{background:#1f4fd6;color:#fff}
-  .dl-note{font-size:12px;color:#999}
-
-  /* Social icons as real links (keeps the original round-badge look) */
-  .social a{width:22px;height:22px;border-radius:50%;background:#fff;color:#0789ef;
-            display:grid;place-items:center;font-weight:bold;text-decoration:none}
-
-  .edit-note{background:#fff8e1;border:1px dashed #e0b400;border-radius:8px;padding:8px 12px;
-             font-size:12.5px;color:#7a5b00;margin:8px 0}
-
-  /* scroll offset so in-page anchors land below sticky-ish header content */
-  h3[id],div[id]{scroll-margin-top:20px}
+:root{--blue:#1a5fb4;--bg:#f4f6f9;--card:#ffffff;--border:#e1e6ec;--text:#22303f;--danger:#d64545;}
+*{box-sizing:border-box;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:0;}
+.topbar{background:var(--blue);color:#fff;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;}
+.topbar h1{font-size:18px;margin:0;}
+.topbar button{background:#ffffff22;color:#fff;border:1px solid #fff5;padding:6px 14px;border-radius:6px;cursor:pointer;}
+.wrap{max-width:900px;margin:24px auto;padding:0 16px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.card h2{margin-top:0;font-size:16px;color:var(--blue);}
+label{display:block;font-size:13px;margin:10px 0 4px;color:#555;}
+input[type=text],input[type=password],input[type=url],textarea,select{width:100%;padding:10px;border:1px solid var(--border);border-radius:6px;font-size:14px;font-family:inherit;}
+textarea{min-height:60px;resize:vertical;}
+button.primary{background:var(--blue);color:#fff;border:none;padding:10px 18px;border-radius:6px;cursor:pointer;font-size:14px;margin-top:12px;}
+button.primary:hover{opacity:.9;}
+button.danger{background:var(--danger);color:#fff;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;font-size:12px;}
+.status{margin-top:10px;font-size:13px;padding:8px 10px;border-radius:6px;display:none;}
+.status.ok{display:block;background:#e6f4ea;color:#1e7e34;}
+.status.err{display:block;background:#fdecea;color:#c62828;}
+.status.busy{display:block;background:#fff8e1;color:#8a6d00;}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin-top:12px;}
+.gitem{position:relative;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fafafa;}
+.gitem img{width:100%;height:100px;object-fit:cover;display:block;}
+.gitem .rm{position:absolute;top:4px;right:4px;}
+.login-wrap{max-width:360px;margin:80px auto;padding:24px;background:#fff;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.08);}
+.login-wrap h1{font-size:18px;color:var(--blue);margin-top:0;}
+.hidden{display:none;}
+small.hint{color:#888;display:block;margin-top:4px;}
+.item-row{border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;background:#fafbfc;}
+.item-row .info b{display:block;font-size:14px;}
+.item-row .info span{font-size:12px;color:#666;}
+.section-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.section-tabs button{padding:7px 12px;border-radius:20px;border:1px solid var(--border);background:#fff;cursor:pointer;font-size:13px;}
+.section-tabs button.active{background:var(--blue);color:#fff;border-color:var(--blue);}
 </style>
 </head>
 <body>
 
-<header>
+<div id="loginScreen" class="login-wrap">
+<h1>🔐 Admin Login</h1>
+<label>Admin Password</label>
+<input type="password" id="adminPass" placeholder="Enter admin password">
+<label>GitHub Access Token</label>
+<input type="password" id="ghToken" placeholder="ghp_... or github_pat_...">
+<small class="hint">Token is stored only in your browser (localStorage), never sent anywhere except GitHub.</small>
+<button class="primary" onclick="login()">Login</button>
+<div id="loginStatus" class="status"></div>
+</div>
+
+<div id="dashboard" class="hidden">
 <div class="topbar">
-<div class="toplinks">
-<a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a>
-<a href="grammar.html">Resources</a><a href="grade.html">Grade 11/12</a><a href="classes.html">Classes</a>
-<a href="gallery.html">Gallery</a><a href="tsc.html">TSC Materials</a>
-</div>
-<!-- Social links -->
-<div class="social">
-  <a href="#" title="Facebook" data-social="facebook">f</a>
-  <a href="#" title="Instagram" data-social="instagram">◎</a>
-  <a href="#" title="YouTube" data-social="youtube">▶</a>
-  <a href="#" title="TikTok" data-social="tiktok">♪</a>
-</div>
+<h1>Tek Raj Kapadi — Admin Panel</h1>
+<button onclick="logout()">Logout</button>
 </div>
 
-<div class="brand" id="home">
-<div class="avatar-wrap"><img src="teacher-photo.jpg" alt="Tek Raj Kapadi" onerror="this.onerror=null;this.src='teacher-photo.svg'"></div>
-<div>
-<div class="official">Tek Raj Kapadi's Educational Website</div>
-<h1><span>Learning Chautari </span> <b>With TEKRAJ </b></h1>
-<p>English Teacher • Educator • Learning Resources</p>
-</div>
+<div class="wrap">
+
+<div class="card">
+<h2>📢 Notice / सूचना</h2>
+<label>Notice text</label>
+<textarea id="noticeInput"></textarea>
+<button class="primary" onclick="saveNotice()">Save Notice</button>
+<div id="noticeStatus" class="status"></div>
 </div>
 
-<nav class="mainnav">
-<div class="nav-item"><a class="top-link" href="index.html">HOME</a></div>
-<details class="nav-details">
-<summary class="">GRAMMAR <span class="arrow">▾</span></summary>
-<div class="dropdown">
-<a class="" href="grammar.html">Grammar Overview</a>
-<a class="" href="grammar.html#tenses">Tenses</a>
-<a class="" href="grammar.html#articles">Articles</a>
-<a class="" href="grammar.html#prepositions">Prepositions</a>
-<a class="" href="grammar.html#voice">Active & Passive Voice</a>
-<a class="" href="grammar.html#tags">Tag Questions</a>
-<a class="" href="grammar.html#exercises">Grammar Exercises</a>
-</div>
-</details>
-<details class="nav-details">
-<summary class="">GRADE 11/12 <span class="arrow">▾</span></summary>
-<div class="dropdown">
-<a class="" href="grade.html">Grade 11/12 Overview</a>
-<a class="" href="grade.html#grade11">Grade 11</a>
-<a class="" href="grade.html#grade12">Grade 12</a>
-<a class="" href="grade.html#see">SEE</a>
-<a class="" href="grade.html#tsc-prep">TSC (License Prep)</a>
-</div>
-</details>
-<details class="nav-details">
-<summary class="">CLASSES <span class="arrow">▾</span></summary>
-<div class="dropdown">
-<a class="" href="classes.html">Classes Overview</a>
-<a class="" href="classes.html#spoken-english">Spoken English</a>
-<a class="" href="classes.html#new-courses">New Courses</a>
-</div>
-</details>
-<details class="nav-details">
-<summary class="">GALLERY <span class="arrow">▾</span></summary>
-<div class="dropdown">
-<a class="" href="gallery.html">Gallery Overview</a>
-<a class="" href="gallery.html#learning">Learning</a>
-<a class="" href="gallery.html#classroom">Classroom</a>
-<a class="" href="gallery.html#practice">Practice</a>
-<a class="" href="gallery.html#school">School</a>
-</div>
-</details>
-<details class="nav-details">
-<summary class="">TSC MATERIALS <span class="arrow">▾</span></summary>
-<div class="dropdown">
-<a class="" href="tsc.html">TSC Overview</a>
-<a class="" href="tsc.html#pedagogy">English Pedagogy Notes</a>
-<a class="" href="tsc.html#question-sets">Old Question Sets</a>
-<a class="" href="tsc.html#methodology">Teaching Methodology Summary</a>
-</div>
-</details>
-<div class="nav-item"><a class="top-link" href="classes.html#new-courses">NEW COURSES</a></div>
-<div class="nav-item"><a class="top-link" href="notices.html">NOTICES</a></div>
-</nav>
-</header>
-
-<div class="page-head">
-<p class="crumb"><a href="index.html">Home</a> / About</p>
-<h1>Why study here? <span style="font-size:16px;color:#888;font-weight:normal">किन यहाँ?</span></h1>
+<div class="card">
+<h2>🔗 Social Media Links</h2>
+<p style="font-size:13px;color:#666;margin-top:-6px;">यहाँ राखेको link हरू सबै page को top-right social icon मा देखिनेछ।</p>
+<label>Facebook Page URL</label>
+<input type="url" id="socFacebook" placeholder="https://facebook.com/yourpage">
+<label>Instagram URL</label>
+<input type="url" id="socInstagram" placeholder="https://instagram.com/yourprofile">
+<label>YouTube Channel URL</label>
+<input type="url" id="socYoutube" placeholder="https://youtube.com/@yourchannel">
+<label>TikTok URL (optional)</label>
+<input type="url" id="socTiktok" placeholder="https://tiktok.com/@yourprofile">
+<button class="primary" onclick="saveSocial()">Save Social Links</button>
+<div id="socialStatus" class="status"></div>
 </div>
 
-<div class="simple-section">
-<div class="info-card">
-<div class="features">
-<p><b>Bilingual explanations.</b><br>Grammar rules explained in English and simple Nepali.</p>
-<p><b>Exam-focused.</b><br>Materials designed around NEB, SEE and TSC preparation.</p>
-<p><b>Free resources.</b><br>Worksheets, model sets, notes and useful learning charts.</p>
-<p><b>Practice first.</b><br>Quizzes and exercises after lessons for self-checking.</p>
-</div>
-</div>
+<div class="card">
+<h2>🖼️ Gallery Photos</h2>
+<div id="galleryGrid" class="gallery-grid"></div>
+<label style="margin-top:16px;">Add new photo</label>
+<input type="file" id="photoFile" accept="image/*">
+<button class="primary" onclick="uploadPhoto()">Upload Photo</button>
+<div id="galleryStatus" class="status"></div>
 </div>
 
-<footer>
-<strong>TEK RAJ KAPADI — LEARN ENGLISH</strong>
-<p>English learning resources for Nepali students • © 2026 Tek Raj Kapadi</p>
-</footer>
+<div class="card">
+<h2>📚 Content Sections</h2>
+<p style="font-size:13px;color:#666;margin-top:-6px;">Add new notes, materials or posts. New items are added on top — old ones stay unless you delete them.</p>
+<div class="section-tabs" id="sectionTabs"></div>
+
+<label>Title</label>
+<input type="text" id="itemTitle" placeholder="e.g. Grade 11 Chapter 3 Notes">
+<label>Short tag / meta (optional)</label>
+<input type="text" id="itemMeta" placeholder="e.g. NEB • Grade 11">
+<label>Description</label>
+<textarea id="itemDescription" placeholder="Short description of this material"></textarea>
+<label>Link (optional — YouTube video, Google Drive, or any external URL)</label>
+<input type="url" id="itemLink" placeholder="https://...">
+<label>Attach file — PDF / notes / photo (optional)</label>
+<input type="file" id="itemFile" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,image/*">
+<small class="hint">ठूला भिडियोको लागि यहाँ upload नगर्नुहोस् — माथिको "Link" मा YouTube link राख्नुहोस्। PDF/notes/photo को लागि यो ठिक छ (अधिकतम ~ 45MB)।</small>
+<button class="primary" onclick="addItem()">Add to Section</button>
+<div id="itemStatus" class="status"></div>
+
+<div id="itemsList" style="margin-top:18px;"></div>
+</div>
+
+</div>
+</div>
 
 <script>
-// Accordion toggle (Grammar Rules)
-function toggleAcc(btn){
-  const item = btn.parentElement;
-  const wasOpen = item.classList.contains('open');
-  item.parentElement.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
-  if(!wasOpen) item.classList.add('open');
+const OWNER = 'rajtekdhn';
+const REPO = 'learning-chautari-';
+const BRANCH = 'main';
+const ADMIN_PASSWORD = 'tekraj@2026'; // change this to your own password
+
+const SECTIONS = [
+{ key: 'recentPosts', label: 'Recent Posts' },
+{ key: 'grammarRules', label: 'Grammar Rules' },
+{ key: 'grammarExercises', label: 'Grammar Exercises' },
+{ key: 'tscMaterials', label: 'TSC Materials' },
+{ key: 'grade11', label: 'Grade 11' },
+{ key: 'grade12', label: 'Grade 12' },
+{ key: 'seeEnglish', label: 'SEE English' },
+{ key: 'spokenEnglish', label: 'Spoken English' },
+{ key: 'classes', label: 'Classes' },
+{ key: 'notices', label: 'Notices' }
+];
+let activeSection = SECTIONS[0].key;
+
+let currentData = null;
+let currentSha = null;
+
+function api(path){ return `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`; }
+function getToken(){ return localStorage.getItem('gh_token'); }
+
+function login(){
+const pass = document.getElementById('adminPass').value;
+const token = document.getElementById('ghToken').value.trim();
+const statusEl = document.getElementById('loginStatus');
+if(pass !== ADMIN_PASSWORD){
+statusEl.className = 'status err'; statusEl.textContent = 'Wrong password.'; return;
+}
+if(!token){
+statusEl.className = 'status err'; statusEl.textContent = 'Please enter GitHub token.'; return;
+}
+localStorage.setItem('gh_token', token);
+document.getElementById('loginScreen').classList.add('hidden');
+document.getElementById('dashboard').classList.remove('hidden');
+buildTabs();
+loadData();
 }
 
-// Close other open dropdown menus when one opens (nice-to-have on desktop)
-document.querySelectorAll('details.nav-details').forEach(d=>{
-  d.addEventListener('toggle', function(){
-    if(this.open){
-      document.querySelectorAll('details.nav-details').forEach(o=>{ if(o!==this) o.open=false; });
-    }
-  });
+function logout(){
+localStorage.removeItem('gh_token');
+location.reload();
+}
+
+function buildTabs(){
+const wrap = document.getElementById('sectionTabs');
+wrap.innerHTML = '';
+SECTIONS.forEach(sec => {
+const btn = document.createElement('button');
+btn.textContent = sec.label;
+if(sec.key === activeSection) btn.className = 'active';
+btn.onclick = () => { activeSection = sec.key; buildTabs(); renderItems(); };
+wrap.appendChild(btn);
 });
+}
+
+async function loadData(){
+try{
+const res = await fetch(api('data.json'), {
+headers: { Authorization: `token ${getToken()}` }
+});
+if(!res.ok) throw new Error('Could not load data.json (' + res.status + ')');
+const json = await res.json();
+currentSha = json.sha;
+currentData = JSON.parse(decodeURIComponent(escape(atob(json.content))));
+if(!currentData.sections) currentData.sections = {};
+SECTIONS.forEach(s => { if(!currentData.sections[s.key]) currentData.sections[s.key] = []; });
+document.getElementById('noticeInput').value = currentData.notice || '';
+if(!currentData.social) currentData.social = {};
+document.getElementById('socFacebook').value = currentData.social.facebook || '';
+document.getElementById('socInstagram').value = currentData.social.instagram || '';
+document.getElementById('socYoutube').value = currentData.social.youtube || '';
+document.getElementById('socTiktok').value = currentData.social.tiktok || '';
+renderGallery();
+renderItems();
+}catch(e){
+alert('Error loading data.json: ' + e.message);
+}
+}
+
+function renderGallery(){
+const grid = document.getElementById('galleryGrid');
+grid.innerHTML = '';
+(currentData.gallery || []).forEach((src, idx) => {
+const div = document.createElement('div');
+div.className = 'gitem';
+div.innerHTML = `<img src="https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${src}" alt="">
+<button class="danger rm" onclick="removePhoto(${idx})">✕</button>`;
+grid.appendChild(div);
+});
+}
+
+function renderItems(){
+const list = document.getElementById('itemsList');
+const items = (currentData.sections[activeSection] || []);
+list.innerHTML = '';
+if(!items.length){
+list.innerHTML = '<p style="font-size:13px;color:#888;">No items yet in this section.</p>';
+return;
+}
+items.slice().reverse().forEach((item, revIdx) => {
+const realIdx = items.length - 1 - revIdx;
+const row = document.createElement('div');
+row.className = 'item-row';
+row.innerHTML = `<div class="info"><b>${escapeHtml(item.title||'')}</b>
+<span>${escapeHtml(item.meta||item.description||'')}</span>
+<span style="display:block;margin-top:4px;font-size:11px;color:#1a5fb4">${item.file? '📎 File attached &nbsp;':''}${item.link? '🔗 Link added':''}</span></div>
+<button class="danger" onclick="removeItem(${realIdx})">Remove</button>`;
+list.appendChild(row);
+});
+}
+
+function escapeHtml(str){
+const d = document.createElement('div');
+d.textContent = str;
+return d.innerHTML;
+}
+
+async function saveDataJson(commitMessage){
+const content = btoa(unescape(encodeURIComponent(JSON.stringify(currentData, null, 2))));
+const res = await fetch(api('data.json'), {
+method: 'PUT',
+headers: { Authorization: `token ${getToken()}`, 'Content-Type': 'application/json' },
+body: JSON.stringify({
+message: commitMessage,
+content: content,
+sha: currentSha,
+branch: BRANCH
+})
+});
+if(!res.ok){ const err = await res.json(); throw new Error(err.message || 'Save failed'); }
+const json = await res.json();
+currentSha = json.content.sha;
+}
+
+async function saveNotice(){
+const statusEl = document.getElementById('noticeStatus');
+statusEl.className = 'status busy'; statusEl.textContent = 'Saving...';
+try{
+currentData.notice = document.getElementById('noticeInput').value;
+await saveDataJson('Update notice via admin panel');
+statusEl.className = 'status ok'; statusEl.textContent = 'Saved! Site will update in ~30 seconds.';
+}catch(e){
+statusEl.className = 'status err'; statusEl.textContent = 'Error: ' + e.message;
+}
+}
+
+async function saveSocial(){
+const statusEl = document.getElementById('socialStatus');
+statusEl.className = 'status busy'; statusEl.textContent = 'Saving...';
+try{
+currentData.social = {
+facebook: document.getElementById('socFacebook').value.trim(),
+instagram: document.getElementById('socInstagram').value.trim(),
+youtube: document.getElementById('socYoutube').value.trim(),
+tiktok: document.getElementById('socTiktok').value.trim()
+};
+await saveDataJson('Update social links via admin panel');
+statusEl.className = 'status ok'; statusEl.textContent = 'Saved! Site will update in ~30 seconds.';
+}catch(e){
+statusEl.className = 'status err'; statusEl.textContent = 'Error: ' + e.message;
+}
+}
+
+async function removePhoto(idx){
+if(!confirm('Remove this photo from gallery?')) return;
+const statusEl = document.getElementById('galleryStatus');
+statusEl.className = 'status busy'; statusEl.textContent = 'Removing...';
+try{
+currentData.gallery.splice(idx, 1);
+await saveDataJson('Remove gallery photo via admin panel');
+renderGallery();
+statusEl.className = 'status ok'; statusEl.textContent = 'Removed! Site will update in ~30 seconds.';
+}catch(e){
+statusEl.className = 'status err'; statusEl.textContent = 'Error: ' + e.message;
+}
+}
+
+async function uploadPhoto(){
+const fileInput = document.getElementById('photoFile');
+const statusEl = document.getElementById('galleryStatus');
+if(!fileInput.files.length){ statusEl.className='status err'; statusEl.textContent='Choose a photo first.'; return; }
+const file = fileInput.files[0];
+statusEl.className = 'status busy'; statusEl.textContent = 'Uploading...';
+try{
+const base64 = await fileToBase64(file);
+const safeName = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9.\-_]/g,'');
+const path = 'images/' + safeName;
+const res = await fetch(api(path), {
+method: 'PUT',
+headers: { Authorization: `token ${getToken()}`, 'Content-Type': 'application/json' },
+body: JSON.stringify({
+message: 'Upload gallery photo via admin panel',
+content: base64,
+branch: BRANCH
+})
+});
+if(!res.ok){ const err = await res.json(); throw new Error(err.message || 'Upload failed'); }
+currentData.gallery.push(path);
+await saveDataJson('Add gallery photo to list via admin panel');
+renderGallery();
+fileInput.value = '';
+statusEl.className = 'status ok'; statusEl.textContent = 'Uploaded! Site will update in ~30 seconds.';
+}catch(e){
+statusEl.className = 'status err'; statusEl.textContent = 'Error: ' + e.message;
+}
+}
+
+async function addItem(){
+const title = document.getElementById('itemTitle').value.trim();
+const meta = document.getElementById('itemMeta').value.trim();
+const description = document.getElementById('itemDescription').value.trim();
+const link = document.getElementById('itemLink').value.trim();
+const fileInput = document.getElementById('itemFile');
+const statusEl = document.getElementById('itemStatus');
+if(!title){ statusEl.className='status err'; statusEl.textContent='Title is required.'; return; }
+statusEl.className = 'status busy'; statusEl.textContent = 'Saving...';
+try{
+let filePath = '';
+if(fileInput.files.length){
+const file = fileInput.files[0];
+if(file.size > 45 * 1024 * 1024){
+throw new Error('File is too big (max ~45MB). ठूला भिडियोको लागि YouTube link प्रयोग गर्नुहोस्।');
+}
+statusEl.textContent = 'Uploading file...';
+const base64 = await fileToBase64(file);
+const safeName = Date.now() + '-' + file.name.replace(/[^a-zA-Z0-9.\-_]/g,'');
+filePath = 'files/' + safeName;
+const res = await fetch(api(filePath), {
+method: 'PUT',
+headers: { Authorization: `token ${getToken()}`, 'Content-Type': 'application/json' },
+body: JSON.stringify({ message: 'Upload file via admin panel', content: base64, branch: BRANCH })
+});
+if(!res.ok){ const err = await res.json(); throw new Error(err.message || 'File upload failed'); }
+statusEl.textContent = 'Saving item...';
+}
+currentData.sections[activeSection].push({ title, meta, description, link, file: filePath });
+await saveDataJson('Add item to ' + activeSection + ' via admin panel');
+renderItems();
+document.getElementById('itemTitle').value = '';
+document.getElementById('itemMeta').value = '';
+document.getElementById('itemDescription').value = '';
+document.getElementById('itemLink').value = '';
+fileInput.value = '';
+statusEl.className = 'status ok'; statusEl.textContent = 'Added! Site will update in ~30 seconds.';
+}catch(e){
+statusEl.className = 'status err'; statusEl.textContent = 'Error: ' + e.message;
+}
+}
+
+async function removeItem(idx){
+if(!confirm('Remove this item?')) return;
+const statusEl = document.getElementById('itemStatus');
+statusEl.className = 'status busy'; statusEl.textContent = 'Removing...';
+try{
+currentData.sections[activeSection].splice(idx, 1);
+await saveDataJson('Remove item from ' + activeSection + ' via admin panel');
+renderItems();
+statusEl.className = 'status ok'; statusEl.textContent = 'Removed! Site will update in ~30 seconds.';
+}catch(e){
+statusEl.className = 'status err'; statusEl.textContent = 'Error: ' + e.message;
+}
+}
+
+function fileToBase64(file){
+return new Promise((resolve, reject) => {
+const reader = new FileReader();
+reader.onload = () => resolve(reader.result.split(',')[1]);
+reader.onerror = reject;
+reader.readAsDataURL(file);
+});
+}
+
+window.onload = function(){
+if(getToken()){
+document.getElementById('ghToken').value = getToken();
+}
+};
 </script>
-<script src="site.js"></script>
 </body>
 </html>
