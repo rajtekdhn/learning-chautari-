@@ -82,10 +82,10 @@
 </div>
 <!-- Social links -->
 <div class="social">
-  <a href="#" title="Facebook">f</a>
-  <a href="#" title="X (Twitter)">𝕏</a>
-  <a href="#" title="Instagram">◎</a>
-  <a href="#" title="YouTube">▶</a>
+  <a href="#" title="Facebook" data-social="facebook">f</a>
+  <a href="#" title="Instagram" data-social="instagram">◎</a>
+  <a href="#" title="YouTube" data-social="youtube">▶</a>
+  <a href="#" title="TikTok" data-social="tiktok">♪</a>
 </div>
 </div>
 
@@ -162,8 +162,9 @@
 
 <div class="simple-section">
 <section class="notice-box">
-<b>NOTICE / सूचना:</b> New English learning materials, model questions and practice sets will be added regularly.
+<b>NOTICE / सूचना:</b> <span data-dyn="notice-text">New English learning materials, model questions and practice sets will be added regularly.</span>
 </section>
+<div style="margin-top:16px" data-dyn-section="notices"></div>
 </div>
 
 <footer>
@@ -189,5 +190,6 @@ document.querySelectorAll('details.nav-details').forEach(d=>{
   });
 });
 </script>
+<script src="site.js"></script>
 </body>
 </html>
